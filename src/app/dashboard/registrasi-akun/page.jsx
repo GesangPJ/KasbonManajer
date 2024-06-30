@@ -16,15 +16,16 @@ const RegistrasiAkun = () =>{
   return(
     <div>
       <Card>
-      <CardHeader title='Basic with Icons' />
+      <CardHeader title='Registrasi Akun' />
       <CardContent>
-        <Form>
+        <Form action='/api/registrasi'>
           <Grid container spacing={5}>
             <Grid item xs={12}>
               <TextField
+                id='nama'
                 fullWidth
-                label='Name'
-                placeholder='John Doe'
+                label='Nama'
+                placeholder='Nama Akun'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
@@ -36,10 +37,11 @@ const RegistrasiAkun = () =>{
             </Grid>
             <Grid item xs={12}>
               <TextField
+                id='email'
                 fullWidth
                 type='email'
                 label='Email'
-                placeholder='johndoe@gmail.com'
+                placeholder='Email Akun'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
@@ -51,13 +53,15 @@ const RegistrasiAkun = () =>{
             </Grid>
             <Grid item xs={12}>
               <TextField
+                id='password'
                 fullWidth
-                label='Phone No.'
-                placeholder='123-456-7890'
+                type='password'
+                label='Password'
+                placeholder='Password'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <i className='ri-phone-fill' />
+                      <i className='ri-key-2-fill' />
                     </InputAdornment>
                   )
                 }}
@@ -82,9 +86,9 @@ const RegistrasiAkun = () =>{
           </FormControl>
 
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} justifyContent="center" alignItems="center">
               <Button variant='contained' type='submit'>
-                Submit
+                Daftar
               </Button>
             </Grid>
           </Grid>
