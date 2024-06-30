@@ -103,7 +103,7 @@ const VerticalMenu = ({ scrollMenu }) => {
           </MenuItem>
         </SubMenu>
         <SubMenu
-          label='Akun'
+          label='Manajemen Akun'
           icon={<i className='ri-account-circle-fill' />}
         >
           <MenuItem
@@ -115,6 +115,11 @@ const VerticalMenu = ({ scrollMenu }) => {
             href='/dashboard/registrasi-akun'
           >
             Registrasi Akun
+          </MenuItem>
+          <MenuItem
+            href='/dashboard/reset-password-akun'
+          >
+            Reset Password Akun
           </MenuItem>
         </SubMenu>
       </Menu>
