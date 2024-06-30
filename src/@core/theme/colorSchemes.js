@@ -6,7 +6,7 @@ const colorSchemes = () => {
       palette: {
         primary: {
           main: '#0084FF',
-          light: '#0347B6',
+          light: '#0077FF',
           dark: '#0084FF',
           lighterOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.08)',
           lightOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.16)',
@@ -83,12 +83,12 @@ const colorSchemes = () => {
           paper: '#FFFFFF'
         },
         action: {
-          active: `rgb(var(--mui-mainColorChannels-light) / 0.6)`,
+          active: `rgb(var(--mui-mainColorChannels-light))`,
           hover: `rgb(var(--mui-mainColorChannels-light) / 0.04)`,
           selected: `rgb(var(--mui-mainColorChannels-light) / 0.08)`,
           disabled: `rgb(var(--mui-mainColorChannels-light) / 0.3)`,
           disabledBackground: `rgb(var(--mui-mainColorChannels-light) / 0.12)`,
-          focus: `rgb(var(--mui-mainColorChannels-light) / 0.1)`,
+          focus: `rgb(var(--mui-mainColorChannels-light) / 0.9)`,
           focusOpacity: 0.1,
           activeChannel: 'var(--mui-mainColorChannels-light)',
           selectedChannel: 'var(--mui-mainColorChannels-light)'
@@ -164,9 +164,9 @@ const colorSchemes = () => {
     dark: {
       palette: {
         primary: {
-          main: '#007EFC',
-          light: '#0198F4',
-          dark: '#007EFC',
+          main: '#0084FF',
+          light: '#0084FF',
+          dark:'#0084FF',
           lighterOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.08)',
           lightOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.16)',
           mainOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.24)',
@@ -242,12 +242,12 @@ const colorSchemes = () => {
           paper: '#343434'
         },
         action: {
-          active: `rgb(var(--mui-mainColorChannels-dark) / 0.6)`,
+          active: `rgb(var(--mui-mainColorChannels-dark))`,
           hover: `rgb(var(--mui-mainColorChannels-dark) / 0.04)`,
           selected: `rgb(var(--mui-mainColorChannels-dark) / 0.08)`,
           disabled: `rgb(var(--mui-mainColorChannels-dark) / 0.3)`,
           disabledBackground: `rgb(var(--mui-mainColorChannels-dark) / 0.12)`,
-          focus: `rgb(var(--mui-mainColorChannels-dark) / 0.1)`,
+          focus: `rgb(var(--mui-mainColorChannels-dark) / 0.9)`,
           focusOpacity: 0.1,
           activeChannel: 'var(--mui-mainColorChannels-dark)',
           selectedChannel: 'var(--mui-mainColorChannels-dark)'
@@ -313,7 +313,7 @@ const colorSchemes = () => {
           bodyBg: '#28243D',
           chatBg: '#373452',
           greyLightBg: '#575757',
-          inputBorder: `rgb(var(--mui-mainColorChannels-dark) / 0.22)`,
+          inputBorder: `rgb(var(--mui-mainColorChannels-dark))`,
           tableHeaderBg: '#034CC1',
           tooltipText: '#312D4B',
           trackBg: '#474360'
