@@ -117,51 +117,6 @@ const VerticalMenu = ({ scrollMenu }) => {
             Registrasi Akun
           </MenuItem>
         </SubMenu>
-        <MenuSection label='Forms & Tables'>
-          <MenuItem href='/form-layouts' icon={<i className='ri-layout-4-line' />}>
-            Form Layouts
-          </MenuItem>
-          <MenuItem
-            href={`${process.env.NEXT_PUBLIC_PRO_URL}/forms/form-validation`}
-            icon={<i className='ri-checkbox-multiple-line' />}
-            suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
-            target='_blank'
-          >
-            Form Validation
-          </MenuItem>
-          <MenuItem
-            href={`${process.env.NEXT_PUBLIC_PRO_URL}/forms/form-wizard`}
-            icon={<i className='ri-git-commit-line' />}
-            suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
-            target='_blank'
-          >
-            Form Wizard
-          </MenuItem>
-          <MenuItem
-            href={`${process.env.NEXT_PUBLIC_PRO_URL}/react-table`}
-            icon={<i className='ri-table-alt-line' />}
-            suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
-            target='_blank'
-          >
-            React Table
-          </MenuItem>
-          <MenuItem
-            href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/user-interface/form-elements`}
-            icon={<i className='ri-radio-button-line' />}
-            suffix={<i className='ri-external-link-line text-xl' />}
-            target='_blank'
-          >
-            Form Elements
-          </MenuItem>
-          <MenuItem
-            href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/user-interface/mui-table`}
-            icon={<i className='ri-table-2' />}
-            suffix={<i className='ri-external-link-line text-xl' />}
-            target='_blank'
-          >
-            MUI Tables
-          </MenuItem>
-        </MenuSection>
       </Menu>
     </ScrollWrapper>
   )
