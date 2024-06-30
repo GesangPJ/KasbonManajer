@@ -51,7 +51,7 @@ const Login = ({ mode }) => {
 
           <div className='flex flex-col gap-5'>
             <div className='items-center justify-center text-center'>
-              <Typography variant='h4'>< i class="ri-receipt-fill"></i> KASBON MANAGER</Typography>
+              <Typography variant='h4'>< i className="ri-receipt-fill"></i> KASBON MANAGER</Typography>
               <Typography className='mbs-1'>Masuk Akun Anda</Typography>
             </div>
             <form noValidate autoComplete='off' onSubmit={handleSubmit} className='flex flex-col gap-5'>
