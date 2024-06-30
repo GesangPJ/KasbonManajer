@@ -107,7 +107,7 @@ const VerticalMenu = ({ scrollMenu }) => {
           icon={<i className='ri-account-circle-fill' />}
         >
           <MenuItem
-            href='/dashbard/daftar-akun'
+            href='/dashboard/daftar-akun'
           >
             Tabel Akun
           </MenuItem>
