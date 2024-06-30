@@ -1,11 +1,18 @@
+import { NextResponse } from 'next/server'
 
-import prisma from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 import bcrypt from 'bcrypt'
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { email, password, name, userType } = req.body;
+const prisma = new PrismaClient()
+
+export const POST = async (req) => {
+  try {
+    const { email, password, name, userType } = await req.json();
+
+    if (!email || !password || !name || !userType) {
+      return NextResponse.json({ error: "Semua bidang harus diisi." }, { status: 400 });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -15,16 +22,15 @@ export default async function handler(req, res) {
           email,
           password: hashedPassword,
           name,
-          userType,
+          userType: userType.toUpperCase(),  // Ensure the userType matches the enum values
         },
-      })
+      });
 
-      res.status(201).json(user)
-
+      return NextResponse.json(user, { status: 201 });
     } catch (error) {
-      res.status(400).json({ error: "User sudah ada" });
+      return NextResponse.json({ error: "User sudah ada" }, { status: 400 });
     }
-  } else {
-    res.status(405).end(); // Method Not Allowed
+  } catch (error) {
+    return NextResponse.json({ error: "Terjadi kesalahan saat memproses permintaan." }, { status: 500 });
   }
 }
