@@ -32,7 +32,6 @@ model User {
   id             Int       @id @default(autoincrement())
   name           String?
   email          String    @unique
-  emailVerified  DateTime?
   password       String    // Add password field
   userType       UserType  @default(KARYAWAN)
   accounts       Account[]
