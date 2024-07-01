@@ -1,12 +1,10 @@
 'use client'
 
-// React Imports
 import { useRef, useState } from 'react'
 
-// Next Imports
 import { useRouter } from 'next/navigation'
 
-// MUI Imports
+import { useSession, signOut } from 'next-auth/react'
 import { styled } from '@mui/material/styles'
 import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
@@ -38,6 +36,7 @@ const UserDropdown = () => {
   const anchorRef = useRef(null)
 
   // Hooks
+  const { data: session } = useSession()
   const router = useRouter()
 
   const handleDropdownOpen = () => {
@@ -56,6 +55,10 @@ const UserDropdown = () => {
     setOpen(false)
   }
 
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/login' })
+  }
+
   return (
     <>
       <Badge
@@ -67,8 +70,8 @@ const UserDropdown = () => {
       >
         <Avatar
           ref={anchorRef}
-          alt='John Doe'
-          src='/images/avatars/1.png'
+          alt={session?.user?.name || 'User'}
+          src={session?.user?.image || '/images/avatars/1.png'}
           onClick={handleDropdownOpen}
           className='cursor-pointer bs-[38px] is-[38px]'
         />
@@ -92,12 +95,17 @@ const UserDropdown = () => {
               <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
                 <MenuList>
                   <div className='flex items-center plb-2 pli-4 gap-2' tabIndex={-1}>
-                    <Avatar alt='John Doe' src='/images/avatars/1.png' />
+                    <Avatar
+                      alt='user profile'
+                      src={session?.user?.image || '/images/avatars/1.png'}
+                    />
                     <div className='flex items-start flex-col'>
                       <Typography className='font-medium' color='text.primary'>
-                        John Doe
+                        {session?.user?.name || 'User'}
                       </Typography>
-                      <Typography variant='caption'>Admin</Typography>
+                      <Typography variant='caption'>
+                        {session?.user?.userType || 'User'}
+                      </Typography>
                     </div>
                   </div>
                   <Divider className='mlb-1' />
@@ -116,7 +124,7 @@ const UserDropdown = () => {
                       color='error'
                       size='small'
                       endIcon={<i className='ri-logout-box-r-line' />}
-                      onClick={e => handleDropdownClose(e, '/login')}
+                      onClick={handleLogout}
                       sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}
                     >
                       Logout
