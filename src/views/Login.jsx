@@ -1,57 +1,47 @@
-// src/views/login.jsx
+// src/views/Login.jsx
 
 'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Alert from '@mui/material/Alert';
+import { signIn } from 'next-auth/react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Alert from '@mui/material/Alert'
 
 const Login = () => {
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const router = useRouter();
+  const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const router = useRouter()
 
-  const handleClickShowPassword = () => setIsPasswordShown(show => !show);
+  const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    try {
-      // Pastikan email dan password terisi dengan benar
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password
+    })
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error);
-        setTimeout(() => setError(null), 5000);
-      } else {
-        localStorage.setItem('token', data.token);
-        router.push('/dashboard');
-      }
-    } catch (error) {
-      setError('Terjadi kesalahan pada server.');
-      setTimeout(() => setError(null), 5000);
+    if (result.error) {
+      setError(result.error)
+      setTimeout(() => setError(null), 5000)
+    } else {
+      router.push('/dashboard')
     }
-  };
+  }
 
   return (
     <div className='flex flex-col justify-center items-center min-bs-[100dvh] relative p-6'>
@@ -103,7 +93,7 @@ const Login = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
