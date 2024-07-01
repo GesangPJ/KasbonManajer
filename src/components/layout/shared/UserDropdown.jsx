@@ -101,10 +101,10 @@ const UserDropdown = () => {
                     />
                     <div className='flex items-start flex-col'>
                       <Typography className='font-medium' color='text.primary'>
-                        {session?.user?.name || 'User'}
+                        {session?.user?.name || 'Nama Akun'}
                       </Typography>
                       <Typography variant='caption'>
-                        {session?.user?.userType || 'User'}
+                        {session?.user?.userType || 'Tipe Akun'}
                       </Typography>
                     </div>
                   </div>
