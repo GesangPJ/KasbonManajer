@@ -1,13 +1,11 @@
 // src/pages/api/auth/[...nextauth].js
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
+
 import bcrypt from 'bcryptjs'
 
 import prisma from '@/app/lib/prisma'
-
-
 
 export default NextAuth({
   providers: [
@@ -33,7 +31,7 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    jwt: true,
+    strategy: 'jwt',
   },
   jwt: {
     secret: process.env.NEXTAUTH_SECRET,
@@ -42,7 +40,7 @@ export default NextAuth({
     signIn: '/',
   },
   callbacks: {
-    async jwt(token, user) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id
         token.email = user.email
@@ -50,7 +48,7 @@ export default NextAuth({
 
       return token
     },
-    async session(session, token) {
+    async session({ session, token }) {
       session.user.id = token.id
       session.user.email = token.email
 
