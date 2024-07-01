@@ -10,7 +10,8 @@ import prisma from '@/app/lib/prisma';
 
 export const POST = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const body = await request.json(); // Parsing body sebagai JSON
+    const { email, password } = body;
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Email atau password tidak boleh kosong' }, { status: 400 });
