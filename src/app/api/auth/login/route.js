@@ -1,17 +1,19 @@
 // src/apps/api/auth/login/route.js
 
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server'
 
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs'
 
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 
-import prisma from '@/app/lib/prisma';
+import prisma from '@/app/lib/prisma'
 
-export const POST = async (req, res) => {
+export const POST = async (req) => {
   try {
-    const body = await request.json(); // Parsing body sebagai JSON
-    const { email, password } = body;
+    // const { email, password } = req.body;
+    const { email, password } = await req.json()
+
+    console.log('Request Body:', { email, password }); // Logging for debugging purposes
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Email atau password tidak boleh kosong' }, { status: 400 });
@@ -28,7 +30,7 @@ export const POST = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, userType: user.userType },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
 
     return NextResponse.json({ token });
