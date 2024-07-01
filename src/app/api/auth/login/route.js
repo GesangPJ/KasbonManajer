@@ -1,5 +1,3 @@
-// src/app/api/auth/login/route.js
-
 import { NextResponse } from 'next/server';
 
 import bcrypt from 'bcryptjs';
@@ -10,33 +8,29 @@ import prisma from '@/app/lib/prisma';
 
 export const POST = async (req, res) => {
   try {
-    const { email, password } = req.body; // Pastikan req.body mengandung email dan password
+    const { email, password } = req.body;
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Email atau password tidak boleh kosong' }, { status: 400 });
     }
 
-    // Find user by email
     const user = await prisma.user.findUnique({
-      where: { email }, // Pastikan email diteruskan dengan benar
+      where: { email },
     });
 
-    // Check if user exists and password is correct
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return NextResponse.json({ error: 'Email atau password salah' }, { status: 401 });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, userType: user.userType },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token expires in 1 hour
+      { expiresIn: '1h' }
     );
 
-    // Respond with the token
     return NextResponse.json({ token });
   } catch (error) {
-    console.error(error);
+    console.error('Error during login:', error); // Logging the error for debugging purposes
 
     return NextResponse.json({ error: 'Terjadi kesalahan saat memproses permintaan' }, { status: 500 });
   }
