@@ -1,3 +1,5 @@
+// src/views/login.jsx
+
 'use client'
 
 import { useState } from 'react';
@@ -14,19 +16,12 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Alert from '@mui/material/Alert';
 
-import { useImageVariant } from '@core/hooks/useImageVariant';
-
-const Login = ({ mode }) => {
+const Login = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
-  const darkImg = '/images/pages/auth-v1-mask-dark.png';
-  const lightImg = '/images/pages/auth-v1-mask-light.png';
-
   const router = useRouter();
-  const authBackground = useImageVariant(mode, lightImg, darkImg);
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show);
 
@@ -34,6 +29,7 @@ const Login = ({ mode }) => {
     e.preventDefault();
 
     try {
+      // Pastikan email dan password terisi dengan benar
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -46,14 +42,14 @@ const Login = ({ mode }) => {
 
       if (!response.ok) {
         setError(data.error);
-        setTimeout(() => setError(null), 5000); // Hapus pesan error setelah 5 detik
+        setTimeout(() => setError(null), 5000);
       } else {
         localStorage.setItem('token', data.token);
         router.push('/dashboard');
       }
     } catch (error) {
       setError('Terjadi kesalahan pada server.');
-      setTimeout(() => setError(null), 5000); // Hapus pesan error setelah 5 detik
+      setTimeout(() => setError(null), 5000);
     }
   };
 
