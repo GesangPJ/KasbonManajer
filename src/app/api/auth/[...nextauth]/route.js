@@ -1,4 +1,4 @@
-// src/app/api/auth/[...nextauth]/route.js
+// NextAuth. Lokasi : /src/app/api/auth/[...nextauth]/route.js
 
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
@@ -35,9 +35,10 @@ const authOptions = {
   },
   jwt: {
     secret: process.env.NEXTAUTH_SECRET,
+    maxAge: 24 * 60 * 60, // Set JWT hanya 24 Jam
   },
   pages: {
-    signIn: '/', // Sign-in page route
+    signIn: '/', // tentukan halaman login
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -49,7 +50,7 @@ const authOptions = {
       }
 
       return token
-    },
+    }, // Menyiapkan session untuk ditampilkan di halaman / komponen
     async session({ session, token }) {
       session.user.id = token.id
       session.user.email = token.email
