@@ -22,9 +22,6 @@ const NavbarContent = ({pageProps}) => {
       </div>
       <div className='flex items-center'>
         <ModeDropdown />
-        <IconButton className='text-textPrimary'>
-          <i className='ri-notification-2-line' />
-        </IconButton>
         <UserDropdown/>
       </div>
     </div>
