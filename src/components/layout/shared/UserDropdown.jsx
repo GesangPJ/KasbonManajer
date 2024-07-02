@@ -122,7 +122,7 @@ const UserDropdown = () => {
                       onClick={handleLogout}
                       sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}
                     >
-                      Logout
+                      Keluar
                     </Button>
                   </div>
                 </MenuList>
