@@ -8,6 +8,10 @@ export const POST = async (req) => {
   try {
     const { userId, jumlah, keterangan } = await req.json()
 
+    if (!userId || !jumlah || !keterangan || !metode) {
+      return NextResponse.json({ error: "Semua bidang harus diisi." }, { status: 400 });
+    }
+
     // Ambil tanggal dan waktu saat ini
     const now = new Date()
     const createdAt = now.toISOString() // menggunakan format ISO untuk datetime
