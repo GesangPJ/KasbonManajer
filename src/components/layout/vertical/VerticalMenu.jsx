@@ -1,5 +1,12 @@
+// VerticalMenu. Lokasi : /src/components/layout/vertical/VerticalMenu.jsx
+
+'use client'
+
+import React from 'react'
+
+import { useSession } from 'next-auth/react'
+
 // MUI Imports
-import Chip from '@mui/material/Chip'
 import { useTheme } from '@mui/material/styles'
 
 // Third-party Imports
@@ -25,14 +32,19 @@ const RenderExpandIcon = ({ open, transitionDuration }) => (
 )
 
 const VerticalMenu = ({ scrollMenu }) => {
-  // Hooks
+  const { data: session } = useSession()
   const theme = useTheme()
   const { isBreakpointReached, transitionDuration } = useVerticalNav()
   const ScrollWrapper = isBreakpointReached ? 'div' : PerfectScrollbar
 
+  if (!session) {
+    return null
+  }
+
+  const isAdmin = session.user.userType === 'ADMIN'
+  const isKaryawan = session.user.userType === 'KARYAWAN'
+
   return (
-    // eslint-disable-next-line lines-around-comment
-    /* Custom scrollbar instead of browser scroll, remove if you want browser scroll only */
     <ScrollWrapper
       {...(isBreakpointReached
         ? {
@@ -44,78 +56,65 @@ const VerticalMenu = ({ scrollMenu }) => {
             onScrollY: container => scrollMenu(container, true)
           })}
     >
-      {/* Incase you also want to scroll NavHeader to scroll with Vertical Menu, remove NavHeader from above and paste it below this comment */}
-      {/* Vertical Menu */}
       <Menu
         menuItemStyles={menuItemStyles(theme)}
         renderExpandIcon={({ open }) => <RenderExpandIcon open={open} transitionDuration={transitionDuration} />}
         renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-line' /> }}
         menuSectionStyles={menuSectionStyles(theme)}
       >
+        {isAdmin && (
+          <>
+            <MenuItem
+              href='/dashboard'
+              icon={<i className="ri-dashboard-line"></i>}
+            >
+              Dashboard
+            </MenuItem>
+            <MenuSection Label='Menu Kasbon'>
+              <SubMenu
+                label='Kasbon'
+                icon={<i className="ri-bill-line"></i>}
+              >
+                <MenuItem href='/dashboard/request'>Request Kasbon</MenuItem>
+                <MenuItem href='/dashboard/bayar'>Konfirmasi Bayar</MenuItem>
+              </SubMenu>
+            </MenuSection>
+            <SubMenu
+              label='Laporan'
+              icon={<i className='ri-file-chart-fill' />}
+            >
+              <MenuItem href='/dashboard/laporan'>Laporan Kasbon</MenuItem>
+              <MenuItem href='/dashboard/cetak'>Export / Print</MenuItem>
+            </SubMenu>
+            <SubMenu
+              label='Manajemen Akun'
+              icon={<i className='ri-account-circle-fill' />}
+            >
+              <MenuItem href='/dashboard/daftar-akun'>Tabel Akun</MenuItem>
+              <MenuItem href='/dashboard/registrasi-akun'>Registrasi Akun</MenuItem>
+              <MenuItem href='/dashboard/reset-password-akun'>Reset Password Akun</MenuItem>
+            </SubMenu>
+          </>
+        )}
 
-        <MenuItem
-            href='/dashboard'  //link ke dashboard
-            icon={<i className="ri-dashboard-line"></i>}
-          >
-            Dashboard
-          </MenuItem>
-        <MenuSection Label='Menu Kasbon'>
-        <SubMenu
-          label='Kasbon'
-          icon={<i className="ri-bill-line"></i>}
-        >
-          <MenuItem
-            href='/dashboard/request'
-
-          >
-            Request Kasbon
-          </MenuItem>
-          <MenuItem
-            href='/dashboard/bayar'
-
-          >
-            Konfirmasi Bayar
-          </MenuItem>
-
-        </SubMenu>
-        </MenuSection>
-        <SubMenu
-          label='Laporan'
-          icon={<i className='ri-file-chart-fill' />}
-        >
-          <MenuItem
-            href='/dashboard/laporan'
-            target='_blank'
-          >
-            Laporan Kasbon
-          </MenuItem>
-          <MenuItem
-            href='/dashboard/cetak'
-            target='_blank'
-          >
-            Export / Print
-          </MenuItem>
-        </SubMenu>
-        <SubMenu
-          label='Manajemen Akun'
-          icon={<i className='ri-account-circle-fill' />}
-        >
-          <MenuItem
-            href='/dashboard/daftar-akun'
-          >
-            Tabel Akun
-          </MenuItem>
-          <MenuItem
-            href='/dashboard/registrasi-akun'
-          >
-            Registrasi Akun
-          </MenuItem>
-          <MenuItem
-            href='/dashboard/reset-password-akun'
-          >
-            Reset Password Akun
-          </MenuItem>
-        </SubMenu>
+        {isKaryawan && (
+          <>
+            <MenuItem
+              href='/dashboard'
+              icon={<i className="ri-dashboard-line"></i>}
+            >
+              Dashboard
+            </MenuItem>
+            <MenuSection Label='Menu Kasbon'>
+              <SubMenu
+                label='Kasbon'
+                icon={<i className="ri-bill-line"></i>}
+              >
+                <MenuItem href='/dashboard/tambah-kasbon'>Tambah Kasbon</MenuItem>
+              </SubMenu>
+            </MenuSection>
+          </>
+        )}
       </Menu>
     </ScrollWrapper>
   )
