@@ -4,11 +4,6 @@
 
 import { useSession } from 'next-auth/react'
 
-// MUI
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-
 //Komponen
 import TabelAdmin from '@/views/kasbon-admin/KasbonAdmin'
 import TabelKaryawan from '@/views/kasbon-karyawan/KasbonKaryawan'
@@ -24,23 +19,20 @@ const DashboardAnalytics = () => {
   const isKaryawan = session.user.userType === 'KARYAWAN'
 
   return (
-    <div>
-      <Card>
+    <div style={{ height: 400, width: '80%' }}>
         {isAdmin && (
-          <CardHeader title="Dashboard Admin">
-            <CardContent>
-              <TabelAdmin/>
-            </CardContent>
-          </CardHeader>
+          <div>
+            <h1>Dashboard Admin</h1>
+            <br />
+            <TabelAdmin/>
+          </div>
         )}
-      {isKaryawan && (
-        <CardHeader title="Dashboard Karyawan">
-          <CardContent>
+        {isKaryawan && (
+            <div>
+              <h1>Dashboard Karyawan</h1>
             <TabelKaryawan/>
-          </CardContent>
-        </CardHeader>
-      )}
-      </Card>
+            </div>
+        )}
     </div>
   )
 }
