@@ -18,16 +18,6 @@ enum UserType {
   KARYAWAN
 }
 
-enum Metode {
-  CASH
-  TRANSFER
-}
-
-enum StatusBayar {
-  BELUM_LUNAS
-  SUDAH_Lunas
-}
-
 model User {
   id             Int       @id @default(autoincrement())
   name           String?
@@ -43,17 +33,17 @@ model User {
 model Kasbon {
   id             Int         @id @default(autoincrement())
   userId         Int
-  adminId        Int
+  adminId        Int?
   jumlah         Int
-  metode         Metode      @default(CASH)
+  metode         String?
   status_r       String?
-  status_b       StatusBayar @default(BELUM_LUNAS)
+  status_b       String?
   keterangan     String?
   createdAt      DateTime    @default(now()) @db.DateTime(3)
   updatedAt      DateTime    @default(now()) @db.DateTime(3)
 
   user           User        @relation("KasbonUser", fields: [userId], references: [id])
-  admin          User        @relation("KasbonAdmin", fields: [adminId], references: [id])
+  admin          User?        @relation("KasbonAdmin", fields: [adminId], references: [id])
 }
 
 model Account {
