@@ -116,7 +116,7 @@ const TambahKasbon = () =>{
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
-                  <InputLabel htmlFor='usertype'>Metode Pembayaran</InputLabel>
+                  <InputLabel htmlFor='metode'>Metode</InputLabel>
                   <Select
                     native
                     label='Metode'
