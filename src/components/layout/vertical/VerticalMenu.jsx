@@ -65,12 +65,6 @@ const VerticalMenu = ({ scrollMenu }) => {
           icon={<i className="ri-bill-line"></i>}
         >
           <MenuItem
-            href='/dashboard/kasbon'
-
-          >
-            Tabel Kasbon
-          </MenuItem>
-          <MenuItem
             href='/dashboard/request'
 
           >
