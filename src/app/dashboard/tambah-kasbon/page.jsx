@@ -37,9 +37,17 @@ const TambahKasbon = () =>{
     event.preventDefault()
     const data = new FormData(event.target)
 
+    // Validasi form sebelum mengirimkan
+  if (!data.get('jumlah') || !data.get('keterangan') || !data.get('metode')) {
+    setStatus('error')
+    setMessage('Semua bidang harus diisi.')
+
+    return
+  }
+
     const formData = {
       userId : session.user.id,
-      jumlah: data.get('jumlah'),
+      jumlah: parseInt(data.get('jumlah'), 10),
       keterangan: data.get('keterangan'),
       metode: data.get('metode')
     }
