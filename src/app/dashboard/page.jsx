@@ -30,6 +30,7 @@ const DashboardAnalytics = () => {
         {isKaryawan && (
             <div>
               <h1>Dashboard Karyawan</h1>
+              <br />
             <TabelKaryawan/>
             </div>
         )}
