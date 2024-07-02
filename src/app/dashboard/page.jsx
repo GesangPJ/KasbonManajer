@@ -1,25 +1,46 @@
+// Dashboard. Lokasi : /src/app/dashboard/page.jsx
+
 'use client'
 
 import { useSession } from 'next-auth/react'
 
-import Grid from '@mui/material/Grid'
+// MUI
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardContent from '@mui/material/CardContent'
+
+//Komponen
+import TabelAdmin from '@/views/kasbon-admin/KasbonAdmin'
+import TabelKaryawan from '@/views/kasbon-karyawan/KasbonKaryawan'
 
 const DashboardAnalytics = () => {
   const { data: session } = useSession()
 
+  if (!session) {
+    return null
+  }
+
+  const isAdmin = session.user.userType === 'ADMIN'
+  const isKaryawan = session.user.userType === 'KARYAWAN'
+
   return (
     <div>
-
-      <Grid container spacing={6}>
-      <h1>Halaman Dashboard Utama</h1>
-      {session && (
-          <div>
-            <p>Nama : {session.user.name}</p>
-            <p>Email: {session.user.email}</p>
-            <p>Tipe Akun : {session.user.userType}</p>
-          </div>
+      <Card>
+        {isAdmin && (
+          <CardHeader title="Dashboard Admin">
+            <CardContent>
+              <TabelAdmin/>
+            </CardContent>
+          </CardHeader>
         )}
-      </Grid>
+      {isKaryawan && (
+        <CardHeader title="Dashboard Karyawan">
+          <CardContent>
+            <TabelKaryawan/>
+          </CardContent>
+        </CardHeader>
+      )}
+      </Card>
     </div>
   )
 }
