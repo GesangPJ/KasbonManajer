@@ -45,7 +45,7 @@ const TambahKasbon = () =>{
     }
 
     try {
-      const response = await fetch('/api/registrasi', {
+      const response = await fetch('/api/tambah-kasbon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const TambahKasbon = () =>{
                       id: 'metode'
                     }}
                   >
-                    <option aria-label='None' value='' />
+                    {/* <option aria-label='None' value='' /> */}
                     <option value={'CASH'}>Cash</option>
                     <option value={'TRANSFER'}>Transfer</option>
                   </Select>
