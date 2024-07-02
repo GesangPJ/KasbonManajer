@@ -19,7 +19,7 @@ const DashboardAnalytics = () => {
   const isKaryawan = session.user.userType === 'KARYAWAN'
 
   return (
-    <div style={{ height: 400, width: '80%' }}>
+    <div style={{ height: 400, width: '100%' }}>
         {isAdmin && (
           <div>
             <h1>Dashboard Admin</h1>
