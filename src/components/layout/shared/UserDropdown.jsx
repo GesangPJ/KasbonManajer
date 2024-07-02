@@ -29,18 +29,13 @@ const BadgeContentSpan = styled('span')({
 })
 
 const UserDropdown = () => {
-  // States
   const [open, setOpen] = useState(false)
-
-  // Refs
   const anchorRef = useRef(null)
-
-  // Hooks
   const { data: session } = useSession()
   const router = useRouter()
 
   const handleDropdownOpen = () => {
-    !open ? setOpen(true) : setOpen(false)
+    setOpen((prevOpen) => !prevOpen)
   }
 
   const handleDropdownClose = (event, url) => {
@@ -56,33 +51,33 @@ const UserDropdown = () => {
   }
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: '/login' })
+    await signOut({ callbackUrl: '/' })
   }
 
   return (
     <>
       <Badge
         ref={anchorRef}
-        overlap='circular'
+        overlap="circular"
         badgeContent={<BadgeContentSpan onClick={handleDropdownOpen} />}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        className='mis-2'
+        className="mis-2"
       >
         <Avatar
           ref={anchorRef}
           alt='User'
           src='/images/avatars/1.png'
           onClick={handleDropdownOpen}
-          className='cursor-pointer bs-[38px] is-[38px]'
+          className="cursor-pointer bs-[38px] is-[38px]"
         />
       </Badge>
       <Popper
         open={open}
         transition
         disablePortal
-        placement='bottom-end'
+        placement="bottom-end"
         anchorEl={anchorRef.current}
-        className='min-is-[240px] !mbs-4 z-[1]'
+        className="min-is-[240px] !mbs-4 z-[1]"
       >
         {({ TransitionProps, placement }) => (
           <Fade
@@ -91,39 +86,39 @@ const UserDropdown = () => {
               transformOrigin: placement === 'bottom-end' ? 'right top' : 'left top'
             }}
           >
-            <Paper className='shadow-lg'>
-              <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
+            <Paper className="shadow-lg">
+              <ClickAwayListener onClickAway={handleDropdownClose}>
                 <MenuList>
-                  <div className='flex items-center plb-2 pli-4 gap-2' tabIndex={-1}>
+                  <div className="flex items-center plb-2 pli-4 gap-2" tabIndex={-1}>
                     <Avatar
-                      alt='user profile'
+                      alt="user profile"
                       src='/images/avatars/1.png'
                     />
-                    <div className='flex items-start flex-col'>
-                      <Typography className='font-medium' color='text.primary'>
+                    <div className="flex items-start flex-col">
+                      <Typography className="font-medium" color="text.primary">
                         {session?.user?.name || 'Nama Akun'}
                       </Typography>
-                      <Typography variant='caption'>
+                      <Typography variant="caption">
                         {session?.user?.userType || 'Tipe Akun'}
                       </Typography>
                     </div>
                   </div>
-                  <Divider className='mlb-1' />
-                  <MenuItem className='gap-3' onClick={e => handleDropdownClose(e)}>
-                    <i className='ri-user-3-line' />
-                    <Typography color='text.primary'>My Profile</Typography>
+                  <Divider className="mlb-1" />
+                  <MenuItem className="gap-3" onClick={handleDropdownClose}>
+                    <i className="ri-user-3-line" />
+                    <Typography color="text.primary">My Profile</Typography>
                   </MenuItem>
-                  <MenuItem className='gap-3' onClick={e => handleDropdownClose(e)}>
-                    <i className='ri-settings-4-line' />
-                    <Typography color='text.primary'>Settings</Typography>
+                  <MenuItem className="gap-3" onClick={handleDropdownClose}>
+                    <i className="ri-settings-4-line" />
+                    <Typography color="text.primary">Settings</Typography>
                   </MenuItem>
-                  <div className='flex items-center plb-2 pli-4'>
+                  <div className="flex items-center plb-2 pli-4">
                     <Button
                       fullWidth
-                      variant='contained'
-                      color='error'
-                      size='small'
-                      endIcon={<i className='ri-logout-box-r-line' />}
+                      variant="contained"
+                      color="error"
+                      size="small"
+                      endIcon={<i className="ri-logout-box-r-line" />}
                       onClick={handleLogout}
                       sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}
                     >
