@@ -39,7 +39,7 @@ model Kasbon {
   status_r       String?
   status_b       String?
   keterangan     String?
-  createdAt      DateTime    @default(now()) @db.DateTime(3)
+  createdAt      DateTime
   updatedAt      DateTime    @default(now()) @db.DateTime(3)
 
   user           User        @relation("KasbonUser", fields: [userId], references: [id])
