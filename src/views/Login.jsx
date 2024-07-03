@@ -35,7 +35,9 @@ const Login = () => {
       password
     })
 
-    if (result.error) {
+    if (result.error === 'CredentialsSignin') {
+      setError('Maaf Email / Password anda tidak ditemukan')
+    } else if (result.error) {
       setError(result.error)
       setTimeout(() => setError(null), 5000)
     } else {
