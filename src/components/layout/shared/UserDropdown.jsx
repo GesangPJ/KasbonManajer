@@ -66,7 +66,7 @@ const UserDropdown = () => {
         <Avatar
           ref={anchorRef}
           alt='User'
-          src='/images/avatars/1.png'
+          src='/images/avatars/avatar3d.png'
           onClick={handleDropdownOpen}
           className="cursor-pointer bs-[38px] is-[38px]"
         />
@@ -92,7 +92,7 @@ const UserDropdown = () => {
                   <div className="flex items-center plb-2 pli-4 gap-2" tabIndex={-1}>
                     <Avatar
                       alt="user profile"
-                      src='/images/avatars/1.png'
+                      src='/images/avatars/avatar3d.png'
                     />
                     <div className="flex items-start flex-col">
                       <Typography className="font-medium" color="text.primary">
