@@ -11,11 +11,6 @@ import '@assets/iconify-icons/generated-icons.css';
 
 import { SessionProvider } from 'next-auth/react';
 
-// export const metadata = {
-//   title: 'Kasbon Manager',
-//   description: 'Aplikasi Pengelola Kasbon dengan NextJS 14 Full Stack',
-// };
-
 const RootLayout = ({ children }) => {
   const direction = 'ltr';
 
