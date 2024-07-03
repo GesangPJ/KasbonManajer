@@ -6,6 +6,11 @@ import { useSession } from 'next-auth/react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import Chip from '@mui/material/Chip'
+import Box from '@mui/material/Box'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -18,27 +23,28 @@ const truncateText = (text, maxLength) => {
 const getStatusChip = (status) => {
   switch (status) {
     case 'BELUM':
-      return <Chip label="BELUM" color="warning" />
+      return <Chip label="BELUM" color="warning" variant="outlined" icon= {<WarningAmberIcon/>} />
     case 'SETUJU':
-      return <Chip label="SETUJU" color="success" />
+      return <Chip label="SETUJU" color="success" variant="outlined" icon= {<CheckCircleOutlineIcon/>} />
     case 'TOLAK':
-      return <Chip label="DITOLAK" color="error" />
+      return <Chip label="DITOLAK" color="error" variant="outlined"  icon= {<HighlightOffIcon/>} />
     default:
-      return <Chip label="UNKNOWN" color="default" />
+      return <Chip label="UNKNOWN" color="default" variant="outlined" />
   }
 }
 
 const getBayarChip = (status) => {
   switch (status) {
     case 'BELUM':
-      return <Chip label="BELUM" color="error" />
+      return <Chip label="BELUM" color="error" variant="outlined" icon= {<ErrorOutlineIcon/>} />
     case 'LUNAS':
-      return <Chip label="LUNAS" color="success" />
+      return <Chip label="LUNAS" color="success" variant="outlined" icon= {<CheckCircleOutlineIcon/>} />
     default:
-      return <Chip label="UNKNOWN" color="default" />
+      return <Chip label="UNKNOWN" color="default" variant="outlined" />
   }
 }
 
+// Format Tanggal Indonesia
 // const formatDate = (dateString) => {
 //   if (!dateString) return 'Invalid Date'
 //   const date = new Date(dateString)
@@ -51,7 +57,7 @@ const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
   const date = new Date(dateString)
   const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0') // Months are 0-based
+  const month = String(date.getMonth() + 1).padStart(2, '0')
   const year = date.getFullYear()
   const hours = String(date.getHours()).padStart(2, '0')
   const minutes = String(date.getMinutes()).padStart(2, '0')
@@ -72,46 +78,54 @@ const columns = [
   {
     field: 'updatedAt',
     headerName: 'Tanggal/Jam',
+    headerClassName:'app-theme--header',
     width: 150,
     renderCell: (params) => <div>{formatDate(params.value)}</div>,
   },{
     field: 'namaKaryawan',
     headerName: 'Nama',
+    headerClassName:'app-theme--header',
     width: 100,
   },
   {
     field: 'jumlah',
     headerName: 'Jumlah',
+    headerClassName:'app-theme--header',
     width: 100,
     renderCell: (params) => <div>{formatCurrency(params.value)}</div>,
   },
   {
     field: 'status_r',
     headerName: 'Status Request',
-    width: 120,
+    headerClassName:'app-theme--header',
+    width: 160,
     renderCell: (params) => getStatusChip(params.value),
   },
   {
     field: 'status_b',
     headerName: 'Status Bayar',
-    width: 120,
+    headerClassName:'app-theme--header',
+    width: 160,
     renderCell: (params) => getBayarChip(params.value),
   },
   { field: 'metode', headerName: 'Metode', width: 100 },
   {
     field: 'keterangan',
     headerName: 'Keterangan',
+    headerClassName:'app-theme--header',
     width: 150,
     renderCell: (params) => <div>{truncateText(params.value, 40)}</div>,
   },
   {
     field: 'namaAdmin',
     headerName: 'Admin',
+    headerClassName:'app-theme--header',
     width: 120,
   },
   {
     field: 'detail',
     headerName: 'Detail',
+    headerClassName:'app-theme--header',
     width: 100,
     renderCell: (params) => (
       <Button variant="contained" color="primary">
@@ -148,7 +162,16 @@ const TabelAdmin = () => {
   }, [session])
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <Box
+      sx={{
+        height: 400,
+        width: '100%',
+        '& .app-theme--header': {
+          fontWeight: 'bold',
+          fontSize: '1.1rem', // Adjust as needed
+        },
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -160,7 +183,7 @@ const TabelAdmin = () => {
         loading={loading}
         getRowId={(row) => row.id} // Tetap gunakan ID asli untuk identifikasi baris
       />
-    </div>
+    </Box>
   )
 }
 
