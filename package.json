@@ -12,7 +12,7 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "build:icons": "tsx src/assets/iconify-icons/bundle-icons-css.js",
-    "postinstall": "npm run build:icons",
+    "postinstall": "npm run build:icons && npx prisma generate",
     "seedAdmin": "node prisma/seedAdmin.js",
     "seedKaryawan": "node prisma/seedKaryawan.js",
     "deleteKasbon": "node prisma/deleteKasbon.js"
