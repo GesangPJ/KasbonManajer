@@ -85,7 +85,7 @@ const columns = [
     field: 'namaKaryawan',
     headerName: 'Nama',
     headerClassName:'app-theme--header',
-    width: 100,
+    width: 160,
   },
   {
     field: 'jumlah',
