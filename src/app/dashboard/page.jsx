@@ -1,43 +1,16 @@
 // Dashboard. Lokasi : /src/app/dashboard/page.jsx
 
+'use client'
+
+import dynamic from 'next/dynamic'
+
 import { useSession } from 'next-auth/react'
 
-import TabelAdmin from '@/views/kasbon-admin/KasbonAdmin'
-import TabelKaryawan from '@/views/kasbon-karyawan/KasbonKaryawan'
+//Import Komponen dan pastikan komponen menjadi dynamic page
+const TabelAdmin = dynamic(() => import('@/views/kasbon-admin/KasbonAdmin'), { ssr: false })
+const TabelKaryawan = dynamic(() => import('@/views/kasbon-karyawan/KasbonKaryawan'), { ssr: false })
 
-export async function getServerSideProps(context) {
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data: session } = await useSession()
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  try {
-    const response = await fetch(`/api/dashboard-admin`)
-    const data = await response.json()
-
-    return {
-      props: {
-        initialData: data,
-      },
-    }
-  } catch (error) {
-    console.error('Error mengambil data:', error)
-
-    return {
-      notFound: true,
-    }
-  }
-}
-
-const DashboardPage = ({ initialData }) => {
+const DashboardAnalytics = () => {
   const { data: session } = useSession()
 
   if (!session) {
@@ -49,22 +22,22 @@ const DashboardPage = ({ initialData }) => {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {isAdmin && (
-        <div>
-          <h1>Dashboard Admin</h1>
-          <br />
-          <TabelAdmin initialData={initialData} />
-        </div>
-      )}
-      {isKaryawan && (
-        <div>
-          <h1>Dashboard Karyawan</h1>
-          <br />
-          <TabelKaryawan/>
-        </div>
-      )}
+        {isAdmin && (
+          <div>
+            <h1>Dashboard Admin</h1>
+            <br />
+            <TabelAdmin/>
+          </div>
+        )}
+        {isKaryawan && (
+            <div>
+              <h1>Dashboard Karyawan</h1>
+              <br />
+            <TabelKaryawan/>
+            </div>
+        )}
     </div>
   )
 }
 
-export default DashboardPage
+export default DashboardAnalytics
