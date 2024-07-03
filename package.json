@@ -5,14 +5,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "generate": "npx prisma generate",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "build:icons": "tsx src/assets/iconify-icons/bundle-icons-css.js",
-    "postinstall": "npm run build:icons && npx prisma generate",
+    "postinstall": "npm run build:icons && prisma generate",
     "seedAdmin": "node prisma/seedAdmin.js",
     "seedKaryawan": "node prisma/seedKaryawan.js",
     "deleteKasbon": "node prisma/deleteKasbon.js"
