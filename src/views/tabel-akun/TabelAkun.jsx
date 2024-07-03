@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useEffect, useState } from 'react'
 
 import { DataGrid } from '@mui/x-data-grid'
@@ -22,28 +20,16 @@ const columns = [
   },
 ]
 
-const TabelAkun = () => {
+const TabelAkun = ({ initialData }) => {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/tabel-akun')
-        const data = await response.json()
-
-        // Tambahkan nomor urut
-        const numberedData = data.map((row, index) => ({ ...row, no: index + 1 }))
-
-        setRows(numberedData)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
+    if (initialData) {
+      setRows(initialData)
+      setLoading(false)
     }
-
-    fetchData()
-  }, [])
+  }, [initialData])
 
   return (
     <div style={{ height: 400, width: '80%' }}>
@@ -56,7 +42,7 @@ const TabelAkun = () => {
         checkboxSelection
         disableRowSelectionOnClick
         loading={loading}
-        getRowId={(row) => row.id} // Tetap gunakan ID asli untuk identifikasi baris
+        getRowId={(row) => row.id}
       />
     </div>
   )
