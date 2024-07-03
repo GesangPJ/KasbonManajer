@@ -15,7 +15,8 @@ export const POST = async (req) => {
     // Ambil tanggal dan waktu saat ini
     const now = new Date()
     const createdAt = now.toISOString() // menggunakan format ISO untuk datetime
-    const updatedAt = now.toISOString()
+
+    // Set status request dan bayar ke BELUM
     const status_r = "BELUM"
     const status_b = "BELUM"
 
@@ -29,9 +30,7 @@ export const POST = async (req) => {
           keterangan,
           metode,
           createdAt,
-          updatedAt,
-
-          // updatedAt: createdAt
+          updatedAt: createdAt,
         },
       })
 
