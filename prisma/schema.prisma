@@ -13,17 +13,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum UserType {
-  ADMIN
-  KARYAWAN
-}
-
 model User {
   id             Int       @id @default(autoincrement())
   name           String?
   email          String    @unique
   password       String    // Add password field
-  userType       UserType  @default(KARYAWAN)
+  userType       String?   @default("KARYAWAN")
   accounts       Account[]
   sessions       Session[]
   kasbonsAsUser  Kasbon[]  @relation("KasbonUser")
@@ -40,7 +35,7 @@ model Kasbon {
   status_b       String?
   keterangan     String?
   createdAt      DateTime
-  updatedAt      DateTime    @default(now()) @db.DateTime(3)
+  updatedAt      DateTime
 
   user           User        @relation("KasbonUser", fields: [userId], references: [id])
   admin          User?        @relation("KasbonAdmin", fields: [adminId], references: [id])
