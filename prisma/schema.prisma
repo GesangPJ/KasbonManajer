@@ -17,7 +17,7 @@ model User {
   id             Int       @id @default(autoincrement())
   name           String?
   email          String    @unique
-  password       String    // Add password field
+  password       String
   userType       String?   @default("KARYAWAN")
   accounts       Account[]
   sessions       Session[]
@@ -28,7 +28,7 @@ model User {
 model Kasbon {
   id             Int         @id @default(autoincrement())
   userId         Int
-  adminId        Int?
+  adminId        Int        @default(0)
   jumlah         Int
   metode         String?
   status_r       String?
