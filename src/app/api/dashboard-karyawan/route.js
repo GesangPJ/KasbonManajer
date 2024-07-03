@@ -1,3 +1,5 @@
+// API Dashboard Karyawan. Lokasi : /src/app/api/dashboard-karyawan/route.js
+
 import { NextResponse } from 'next/server'
 
 import prisma from '@/app/lib/prisma'
