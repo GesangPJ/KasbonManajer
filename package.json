@@ -13,8 +13,10 @@
     "build:icons": "tsx src/assets/iconify-icons/bundle-icons-css.js",
     "postinstall": "npm run build:icons",
     "seedAdmin": "node prisma/seedAdmin.js",
-    "seedKaryawan": "node prisma/seedKaryawan.js"
+    "seedKaryawan": "node prisma/seedKaryawan.js",
+    "deleteKasbon": "node prisma/deleteKasbon.js"
   },
+  "type": "module",
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
