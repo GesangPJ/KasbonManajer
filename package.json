@@ -16,7 +16,6 @@
     "seedKaryawan": "node prisma/seedKaryawan.js",
     "deleteKasbon": "node prisma/deleteKasbon.js"
   },
-  "type": "module",
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",

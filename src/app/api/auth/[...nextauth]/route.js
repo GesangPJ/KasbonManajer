@@ -24,7 +24,8 @@ const authOptions = {
           return user
         }
 
-        return null
+        // Jika autentikasi gagal, kirim pesan kesalahan
+        throw new Error('Maaf Email / Password anda tidak ditemukan')
       }
     })
   ],
