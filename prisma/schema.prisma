@@ -28,7 +28,7 @@ model User {
 model Kasbon {
   id             Int         @id @default(autoincrement())
   userId         Int
-  adminId        Int        @default(0)
+  adminId        Int?
   jumlah         Int
   metode         String?
   status_r       String?
