@@ -108,7 +108,7 @@ const columns = [
     width: 160,
     renderCell: (params) => getBayarChip(params.value),
   },
-  { field: 'metode', headerName: 'Metode', width: 100 },
+  { field: 'metode', headerName: 'Metode', headerClassName:'app-theme--header', width: 100 },
   {
     field: 'keterangan',
     headerName: 'Keterangan',
