@@ -2,11 +2,13 @@
 
 'use client'
 
+import dynamic from 'next/dynamic'
+
 import { useSession } from 'next-auth/react'
 
-//Komponen
-import TabelAdmin from '@/views/kasbon-admin/KasbonAdmin'
-import TabelKaryawan from '@/views/kasbon-karyawan/KasbonKaryawan'
+//Import Komponen dan pastikan komponen menjadi dynamic page
+const TabelAdmin = dynamic(() => import('@/views/kasbon-admin/KasbonAdmin'), { ssr: false })
+const TabelKaryawan = dynamic(() => import('@/views/kasbon-karyawan/KasbonKaryawan'), { ssr: false })
 
 const DashboardAnalytics = () => {
   const { data: session } = useSession()
