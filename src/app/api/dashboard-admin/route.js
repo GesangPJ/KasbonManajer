@@ -5,6 +5,15 @@ import { NextResponse } from 'next/server'
 import prisma from '@/app/lib/prisma'
 
 export async function GET(req) {
+  const { searchParams } = new URL(req.url)
+  const userId = searchParams.get('userId')
+
+  if (!userId) {
+    return NextResponse.json({ error: 'User ID tidak ditemukan' }, { status: 400 })
+  }
+
+  console.log(userId)
+
   try {
     const kasbons = await prisma.kasbon.findMany({
       select: {

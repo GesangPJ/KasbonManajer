@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { useSession } from 'next-auth/react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 
@@ -23,27 +24,30 @@ const columns = [
 ]
 
 const TabelAkun = () => {
+  const { data: session } = useSession()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/tabel-akun')
-        const data = await response.json()
+    if (session) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/tabel-akun?userId=${session.user.id}`)
+          const data = await response.json()
 
-        // Tambahkan nomor urut
-        const numberedData = data.map((row, index) => ({ ...row, no: index + 1 }))
+          // Tambahkan nomor urut
+          const numberedData = data.map((row, index) => ({ ...row, no: index + 1 }))
 
-        setRows(numberedData)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching data:', error)
+          setRows(numberedData)
+          setLoading(false)
+        } catch (error) {
+          console.error('Error fetching data:', error)
+        }
       }
-    }
 
-    fetchData()
-  }, [])
+      fetchData()
+    }
+  }, [session])
 
   return (
     <div style={{ height: 400, width: '80%' }}>

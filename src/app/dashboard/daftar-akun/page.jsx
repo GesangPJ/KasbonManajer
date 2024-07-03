@@ -1,5 +1,7 @@
+import dynamic from 'next/dynamic'
 
-import TabelAkun from '@/views/tabel-akun/TabelAkun'
+//Membuat komponen yang diimport menjadi dynamic page
+const TabelAkun = dynamic(()=>import('@views/tabel-akun/TabelAkun'),  {ssr:false})
 
 const DaftarAkun = () => {
 

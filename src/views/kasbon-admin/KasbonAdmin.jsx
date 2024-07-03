@@ -144,7 +144,7 @@ const TabelAdmin = () => {
     if (session) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/dashboard-admin`)
+          const response = await fetch(`/api/dashboard-admin?userId=${session.user.id}`)
           const data = await response.json()
 
           // Tambahkan nomor urut
