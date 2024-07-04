@@ -2,10 +2,16 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { useSession } from 'next-auth/react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import Chip from '@mui/material/Chip'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import PauseCircleIcon from '@mui/icons-material/PauseCircle'
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -18,24 +24,24 @@ const truncateText = (text, maxLength) => {
 const getStatusChip = (status) => {
   switch (status) {
     case 'BELUM':
-      return <Chip label="BELUM" color="warning" />
+      return <Chip label="BELUM" color="warning" variant="outlined" icon= {<PauseCircleIcon/>} />
     case 'SETUJU':
-      return <Chip label="SETUJU" color="success" />
+      return <Chip label="SETUJU" color="success" variant="outlined" icon= {<CheckCircleOutlineIcon/>} />
     case 'TOLAK':
-      return <Chip label="DITOLAK" color="error" />
+      return <Chip label="DITOLAK" color="error" variant="outlined"  icon= {<HighlightOffIcon/>} />
     default:
-      return <Chip label="UNKNOWN" color="default" />
+      return <Chip label="UNKNOWN" color="default" variant="outlined" />
   }
 }
 
 const getBayarChip = (status) => {
   switch (status) {
     case 'BELUM':
-      return <Chip label="BELUM" color="error" />
+      return <Chip label="BELUM" color="error" variant="outlined" icon= {<ErrorOutlineIcon/>} />
     case 'LUNAS':
-      return <Chip label="LUNAS" color="success" />
+      return <Chip label="LUNAS" color="success" variant="outlined" icon= {<CheckCircleOutlineIcon/>} />
     default:
-      return <Chip label="UNKNOWN" color="default" />
+      return <Chip label="UNKNOWN" color="default" variant="outlined" />
   }
 }
 
@@ -55,52 +61,10 @@ const formatCurrency = (amount) => {
   }).format(amount)
 }
 
-const columns = [
-  { field: 'no', headerName: 'No', width: 50 },
-  {
-    field: 'updatedAt',
-    headerName: 'Tanggal/Jam',
-    width: 200,
-    renderCell: (params) => <div>{formatDate(params.value)}</div>,
-  },
-  {
-    field: 'jumlah',
-    headerName: 'Jumlah',
-    width: 100,
-    renderCell: (params) => <div>{formatCurrency(params.value)}</div>,
-  },
-  {
-    field: 'status_r',
-    headerName: 'Status Request',
-    width: 120,
-    renderCell: (params) => getStatusChip(params.value),
-  },
-  {
-    field: 'status_b',
-    headerName: 'Status Bayar',
-    width: 120,
-    renderCell: (params) => getBayarChip(params.value),
-  },
-  { field: 'metode', headerName: 'Metode', width: 100 },
-  {
-    field: 'keterangan',
-    headerName: 'Keterangan',
-    width: 150,
-    renderCell: (params) => <div>{truncateText(params.value, 40)}</div>,
-  },
-  {
-    field: 'edit',
-    headerName: 'Detail',
-    width: 100,
-    renderCell: (params) => (
-      <Button variant="contained" color="primary">
-        Detail
-      </Button>
-    ),
-  },
-]
+
 
 const TabelKaryawan = () => {
+  const router = useRouter()
   const { data: session } = useSession()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
@@ -125,6 +89,60 @@ const TabelKaryawan = () => {
       fetchData()
     }
   }, [session])
+
+  const handleDetailClick = (row) => {
+    if (row && row.id) {
+      router.push(`/dashboard/detail/${row.id}`)
+    } else {
+      console.error('ID tidak valid:', row)
+    }
+  }
+
+  const columns = [
+    { field: 'no', headerName: 'No', width: 50 },
+    {
+      field: 'updatedAt',
+      headerName: 'Tanggal/Jam',
+      width: 200,
+      renderCell: (params) => <div>{formatDate(params.value)}</div>,
+    },
+    {
+      field: 'jumlah',
+      headerName: 'Jumlah',
+      width: 100,
+      renderCell: (params) => <div>{formatCurrency(params.value)}</div>,
+    },
+    {
+      field: 'status_r',
+      headerName: 'Status Request',
+      width: 160,
+      renderCell: (params) => getStatusChip(params.value),
+    },
+    {
+      field: 'status_b',
+      headerName: 'Status Bayar',
+      width: 160,
+      renderCell: (params) => getBayarChip(params.value),
+    },
+    { field: 'metode', headerName: 'Metode', width: 100 },
+    {
+      field: 'keterangan',
+      headerName: 'Keterangan',
+      width: 150,
+      renderCell: (params) => <div>{truncateText(params.value, 40)}</div>,
+    },
+    {
+      field: 'edit',
+      headerName: 'Detail',
+      width: 100,
+      renderCell: (params) => (
+        <Button variant="contained" color="primary"
+        onClick={() => handleDetailClick(params.row)}>
+          Detail &raquo;
+        </Button>
+      ),
+    },
+  ]
 
   return (
     <div style={{ height: 400, width: '100%' }}>

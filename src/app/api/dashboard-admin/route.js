@@ -45,8 +45,8 @@ export async function GET(req) {
       ...kasbon,
       createdAt: kasbon.createdAt.toISOString(),
       updatedAt: kasbon.updatedAt.toISOString(),
-      namaKaryawan: kasbon.user?.name || 'Tidak ada',
-      namaAdmin: kasbon.admin?.name || 'Tidak ada',
+      namaKaryawan: kasbon.user?.name || '-',
+      namaAdmin: kasbon.admin?.name || '-',
     }))
 
     return NextResponse.json(formattedKasbons, { status: 200 })
