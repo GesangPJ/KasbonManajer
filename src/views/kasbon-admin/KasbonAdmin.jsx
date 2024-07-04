@@ -10,9 +10,9 @@ import { Button } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import Box from '@mui/material/Box'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import PauseCircleIcon from '@mui/icons-material/PauseCircle'
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -25,7 +25,7 @@ const truncateText = (text, maxLength) => {
 const getStatusChip = (status) => {
   switch (status) {
     case 'BELUM':
-      return <Chip label="BELUM" color="warning" variant="outlined" icon= {<WarningAmberIcon/>} />
+      return <Chip label="BELUM" color="warning" variant="outlined" icon= {<PauseCircleIcon/>} />
     case 'SETUJU':
       return <Chip label="SETUJU" color="success" variant="outlined" icon= {<CheckCircleOutlineIcon/>} />
     case 'TOLAK':
@@ -45,15 +45,6 @@ const getBayarChip = (status) => {
       return <Chip label="UNKNOWN" color="default" variant="outlined" />
   }
 }
-
-// Format Tanggal Indonesia
-// const formatDate = (dateString) => {
-//   if (!dateString) return 'Invalid Date'
-//   const date = new Date(dateString)
-//   const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
-
-//   return new Intl.DateTimeFormat('id-ID', options).format(date)
-// }
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
