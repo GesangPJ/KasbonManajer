@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { useSession } from 'next-auth/react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
@@ -73,69 +75,10 @@ const formatCurrency = (amount) => {
   }).format(amount)
 }
 
-const columns = [
-  { field: 'no', headerName: 'No', width: 50 },
-  {
-    field: 'updatedAt',
-    headerName: 'Tanggal/Jam',
-    headerClassName:'app-theme--header',
-    width: 150,
-    renderCell: (params) => <div>{formatDate(params.value)}</div>,
-  },{
-    field: 'namaKaryawan',
-    headerName: 'Nama',
-    headerClassName:'app-theme--header',
-    width: 160,
-  },
-  {
-    field: 'jumlah',
-    headerName: 'Jumlah',
-    headerClassName:'app-theme--header',
-    width: 100,
-    renderCell: (params) => <div>{formatCurrency(params.value)}</div>,
-  },
-  {
-    field: 'status_r',
-    headerName: 'Status Request',
-    headerClassName:'app-theme--header',
-    width: 160,
-    renderCell: (params) => getStatusChip(params.value),
-  },
-  {
-    field: 'status_b',
-    headerName: 'Status Bayar',
-    headerClassName:'app-theme--header',
-    width: 160,
-    renderCell: (params) => getBayarChip(params.value),
-  },
-  { field: 'metode', headerName: 'Metode', headerClassName:'app-theme--header', width: 100 },
-  {
-    field: 'keterangan',
-    headerName: 'Keterangan',
-    headerClassName:'app-theme--header',
-    width: 150,
-    renderCell: (params) => <div>{truncateText(params.value, 40)}</div>,
-  },
-  {
-    field: 'namaAdmin',
-    headerName: 'Admin',
-    headerClassName:'app-theme--header',
-    width: 120,
-  },
-  {
-    field: 'detail',
-    headerName: 'Detail',
-    headerClassName:'app-theme--header',
-    width: 100,
-    renderCell: (params) => (
-      <Button variant="contained" color="primary">
-        Detail
-      </Button>
-    ),
-  },
-]
+
 
 const TabelAdmin = () => {
+  const router = useRouter()
   const { data: session } = useSession()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
@@ -160,6 +103,76 @@ const TabelAdmin = () => {
       fetchData()
     }
   }, [session])
+
+  const handleDetailClick = (row) => {
+    if (row && row.id) {
+      router.push(`/dashboard/detail/${row.id}`)
+    } else {
+      console.error('ID tidak valid:', row)
+    }
+  }
+
+  const columns = [
+    { field: 'no', headerName: 'No', width: 50 },
+    {
+      field: 'updatedAt',
+      headerName: 'Tanggal/Jam',
+      headerClassName:'app-theme--header',
+      width: 150,
+      renderCell: (params) => <div>{formatDate(params.value)}</div>,
+    },{
+      field: 'namaKaryawan',
+      headerName: 'Nama',
+      headerClassName:'app-theme--header',
+      width: 160,
+    },
+    {
+      field: 'jumlah',
+      headerName: 'Jumlah',
+      headerClassName:'app-theme--header',
+      width: 100,
+      renderCell: (params) => <div>{formatCurrency(params.value)}</div>,
+    },
+    {
+      field: 'status_r',
+      headerName: 'Status Request',
+      headerClassName:'app-theme--header',
+      width: 160,
+      renderCell: (params) => getStatusChip(params.value),
+    },
+    {
+      field: 'status_b',
+      headerName: 'Status Bayar',
+      headerClassName:'app-theme--header',
+      width: 160,
+      renderCell: (params) => getBayarChip(params.value),
+    },
+    { field: 'metode', headerName: 'Metode', headerClassName:'app-theme--header', width: 100 },
+    {
+      field: 'keterangan',
+      headerName: 'Keterangan',
+      headerClassName:'app-theme--header',
+      width: 150,
+      renderCell: (params) => <div>{truncateText(params.value, 40)}</div>,
+    },
+    {
+      field: 'namaAdmin',
+      headerName: 'Admin',
+      headerClassName:'app-theme--header',
+      width: 170,
+    },
+    {
+      field: 'detail',
+      headerName: 'Detail',
+      headerClassName:'app-theme--header',
+      width: 100,
+      renderCell: (params) => (
+        <Button variant="contained" color="primary" onClick={() => handleDetailClick(params.row)}>
+          Detail &raquo;
+        </Button>
+      ),
+    },
+  ]
 
   return (
     <Box
