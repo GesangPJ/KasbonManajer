@@ -4,16 +4,41 @@ import { useEffect, useState } from 'react'
 
 import { useParams } from 'next/navigation'
 
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import { Button } from '@mui/material'
+
+
+// const formatDate = (dateString) => {
+//   if (!dateString) return 'Invalid Date'
+//   const date = new Date(dateString)
+//   const day = String(date.getDate()).padStart(2, '0')
+//   const month = String(date.getMonth() + 1).padStart(2, '0')
+//   const year = date.getFullYear()
+//   const hours = String(date.getHours()).padStart(2, '0')
+//   const minutes = String(date.getMinutes()).padStart(2, '0')
+
+//   return `${day}-${month}-${year} ${hours}:${minutes}`
+// }
+
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
   const date = new Date(dateString)
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
-  const hours = String(date.getHours()).padStart(2, '0')
-  const minutes = String(date.getMinutes()).padStart(2, '0')
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
 
-  return `${day}-${month}-${year} ${hours}:${minutes}`
+  return new Intl.DateTimeFormat('id-ID', options).format(date)
+}
+
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  }).format(amount)
 }
 
 const DetailPage = () => {
@@ -68,19 +93,42 @@ const DetailPage = () => {
     return <div>Data tidak ditemukan</div>
   }
 
+  const rows = [
+    { label: 'ID Kasbon', value: data.id },
+    { label: 'ID Karyawan', value: data.userId },
+    { label: 'Nama', value: data.namaKaryawan },
+    { label: 'Jumlah', value: formatCurrency(data.jumlah) },
+    { label: 'Status Request', value: data.status_r },
+    { label: 'Status Bayar', value: data.status_b },
+    { label: 'Metode Pembayaran', value: data.metode },
+    { label: 'Keterangan', value: data.keterangan },
+    { label: 'Nama Admin', value: data.namaAdmin },
+    { label: 'Tanggal Kasbon Dibuat', value: formatDate(data.createdAt) },
+    { label: 'Tanggal Kasbon Diperbarui', value: formatDate(data.updatedAt) },
+  ]
+
   return (
     <div>
-      <h1>Detail Kasbon : {data.namaKaryawan} | ID Kasbon : {data.userId} </h1>
+      <h1>Detail Kasbon : {data.namaKaryawan} | ID : {data.userId} </h1>
       <br />
-      <p className='text-xl'>Nama: {data.namaKaryawan}</p>
-      <p className='text-xl'>Jumlah: {data.jumlah}</p>
-      <p className='text-xl'>Status Request: {data.status_r}</p>
-      <p className='text-xl'>Status Bayar: {data.status_b}</p>
-      <p className='text-xl'>Metode: {data.metode}</p>
-      <p className='text-xl'>Keterangan: {data.keterangan}</p>
-      <p className='text-xl'>Admin: {data.namaAdmin}</p>
-      <p className='text-xl'>Tanggal Kasbon Dibuat: {formatDate(data.createdAt)}</p>
-      <p className='text-xl'>Tanggal Kasbon Diperbarui: {formatDate(data.updatedAt)}</p>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row" className='text-xl'>
+                  {row.label}
+                </TableCell>
+                <TableCell className='text-xl'>{row.value}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <br />
+      <Button variant='contained' color="primary" href="/dashboard" size="large">
+        &laquo; Dashboard
+      </Button>
     </div>
   )
 }
