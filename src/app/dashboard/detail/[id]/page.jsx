@@ -18,7 +18,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import { jsPDF } from "jspdf"
 import autoTable from 'jspdf-autotable'
-import { utils, writeFileXLSX } from "xlsx"
+import ExcelJS from 'exceljs'
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
@@ -37,7 +37,6 @@ const formatCurrency = (amount) => {
 }
 
 const DetailPage = () => {
-  const tbl = useRef(null)
   const params = useParams()
   const id = params.id
   const {data: session, status} = useSession()
@@ -119,12 +118,31 @@ const DetailPage = () => {
     const doc = new jsPDF()
 
     autoTable(doc, { html: '#detail-table' })
-    doc.save('detail_kasbon.pdf')
+    doc.save(`detail_kasbon-${data.id}.pdf`)
   }
 
-  const handleExcelExport = () => {
-    // Implement your Excel export logic here
-    exportToExcel(rows, 'detail_kasbon.xlsx')
+  const handleExcelExport = async () => {
+    const workbook = new ExcelJS.Workbook()
+    const worksheet = workbook.addWorksheet('Detail Kasbon')
+
+    worksheet.columns = [
+      { header: 'Label', key: 'label', width: 30 },
+      { header: 'Value', key: 'value', width: 30 },
+    ]
+
+    rows.forEach((row) => {
+      worksheet.addRow(row)
+    })
+
+    const buffer = await workbook.xlsx.writeBuffer()
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+    const link = document.createElement('a')
+
+    link.href = URL.createObjectURL(blob)
+    link.download = `DetailKasbon-${data.id}.xlsx`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   const handleDocxExport = () => {
@@ -136,7 +154,7 @@ const DetailPage = () => {
       <h1>Detail Kasbon : {data.namaKaryawan} | ID : {data.userId} </h1>
       <br />
       <TableContainer component={Paper}>
-        <Table id="detail-table" ref={tbl} sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
+        <Table id="detail-table" sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
           <TableBody>
             {rows.map((row, index) => (
               <TableRow key={index}>
@@ -151,21 +169,16 @@ const DetailPage = () => {
       </TableContainer>
       <br />
       <Box sx={{ display: 'flex', gap: 15, flexWrap: 'wrap' }}>
-        <Button variant='contained' color="primary" href="/dashboard" size="large" >
+        <Button variant='contained' color="primary" sx={ { borderRadius: 30 } } href="/dashboard" size="large" >
           &laquo; Dashboard
         </Button>
-        <Button variant='contained' color="error" onClick={handlePrint} size="large" startIcon={<PictureAsPdfIcon/>}>
+        <Button variant='outlined' color="error" onClick={handlePrint} size="large" sx={ { borderRadius: 30 } } startIcon={<PictureAsPdfIcon/>}>
           PDF Export
         </Button>
-        <Button variant='contained' color="success"
-          onClick={() => {
-            const wb = utils.table_to_book(tbl.current)
-
-            writeFileXLSX(wb, "DetailKasbon.xlsx")
-          }} size="large" startIcon={<ListAltIcon/>}>
+        <Button variant='outlined' color="success" onClick={handleExcelExport} sx={ { borderRadius: 30 } } size="large" startIcon={<ListAltIcon/>}>
                 Export XLSX
         </Button>
-        <Button variant='contained' color="primary" onClick={handleDocxExport} size="large">
+        <Button variant='outlined' color="primary" onClick={handleDocxExport} sx={ { borderRadius: 30 } } size="large">
           Docx
         </Button>
       </Box>
