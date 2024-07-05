@@ -35,8 +35,10 @@ const TabelAkun = () => {
           const response = await fetch(`/api/tabel-akun?userId=${session.user.id}`)
           const data = await response.json()
 
+          const filteredData = data.filter(row => row.userType === 'KARYAWAN')
+
           // Tambahkan nomor urut
-          const numberedData = data.map((row, index) => ({ ...row, no: index + 1 }))
+          const numberedData = filteredData.map((row, index) => ({ ...row, no: index + 1 }))
 
           setRows(numberedData)
           setLoading(false)
@@ -51,8 +53,19 @@ const TabelAkun = () => {
 
   return (
     <div style={{ height: 400, width: '80%' }}>
+      <h2 className='font-bold'>
+        Akun Karyawan
+      </h2>
       <DataGrid
         rows={rows}
+        sx={{
+          boxShadow: 2,
+          border: 2,
+          borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
         columns={columns}
         pageSize={5}
         pageSizeOptions={[5, 10, 25, 50, 100]}
