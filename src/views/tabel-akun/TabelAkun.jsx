@@ -10,7 +10,6 @@ const columns = [
   { field: 'no', headerName: 'No', width: 90 },
   { field: 'name', headerName: 'Nama', width: 200 },
   { field: 'email', headerName: 'Email', width: 200 },
-  { field: 'userType', headerName: 'Tipe Akun', width: 150 },
   {
     field: 'edit',
     headerName: 'Edit',
@@ -52,7 +51,7 @@ const TabelAkun = () => {
   }, [session])
 
   return (
-    <div style={{ height: 400, width: '80%' }}>
+    <div className=' max-w-[50%]'>
       <h2 className='font-bold'>
         Akun Karyawan
       </h2>
