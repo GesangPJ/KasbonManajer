@@ -176,7 +176,7 @@ const StatusBayar = () => {
     },
     {
       field: 'Status',
-      headerName: 'Status',
+      headerName: 'Status Bayar',
       headerClassName: 'app-theme--header',
       width: 300,
       renderCell: (params) => (
@@ -254,6 +254,14 @@ const StatusBayar = () => {
         >
           <DataGrid
             rows={rows}
+            sx={{
+              boxShadow: 2,
+              border: 2,
+              borderColor: 'primary.light',
+              '& .MuiDataGrid-cell:hover': {
+                color: 'primary.main',
+              },
+            }}
             columns={columns}
             pageSize={5}
             pageSizeOptions={[5, 10, 25, 50, 100]}
