@@ -1,5 +1,7 @@
 # KASBON MANAJER
 
+![Vercel](https://vercelbadge.vercel.app/api/GesangPJ/KasbonManajer?style=for-the-badge)
+
 Aplikasi Manajemen Kasbon pengembangan lebih lanjut dari versi sebelumnya,
 menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan tersedia di Branch lain).
 
