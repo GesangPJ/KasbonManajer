@@ -9,12 +9,17 @@ const TabelAkun = dynamic(()=>import('@views/tabel-akun/TabelAkun'),  {ssr:false
 const DaftarAkun = () => {
 
   return (
-    <div style={{ height: 400, width: '80%' }}>
+<div className="">
       <h1>Tabel Daftar Akun</h1>
       <br />
-      <TabelAkun/>
+      <div className="">
+        <TabelAkun/>
+      </div>
       <br />
-      <TabelAkunAdmin/>
+      <div className="">
+        <TabelAkunAdmin/>
+      </div>
+      <br />
     </div>
   )
 }
