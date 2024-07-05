@@ -148,6 +148,14 @@ const TabelKaryawan = () => {
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
+        sx={{
+          boxShadow: 2,
+          border: 2,
+          borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
         columns={columns}
         pageSize={5}
         pageSizeOptions={[5, 10, 25, 50, 100]}
