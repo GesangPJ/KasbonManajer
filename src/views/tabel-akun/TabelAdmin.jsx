@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from 'react'
 
 import { useSession } from 'next-auth/react'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
 const columns = [
   { field: 'no', headerName: 'No', width: 90 },
   { field: 'name', headerName: 'Nama', width: 200 },
   { field: 'email', headerName: 'Email', width: 200 },
-  { field: 'userType', headerName: 'Tipe Akun', width: 150 },
 ]
 
 const TabelAkunAdmin = () => {
@@ -40,7 +39,7 @@ const TabelAkunAdmin = () => {
   }, [session])
 
   return (
-    <div style={{ height: 400, width: '80%' }}>
+    <div className='max-w-[50%]'>
       <h2 className='font-bold'>
         Akun Admin
       </h2>
@@ -54,6 +53,7 @@ const TabelAkunAdmin = () => {
             color: 'primary.main',
           },
         }}
+        slots={{ toolbar: GridToolbar }}
         columns={columns}
         pageSize={5}
         pageSizeOptions={[5, 10, 25, 50, 100]}
