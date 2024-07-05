@@ -51,7 +51,7 @@ const TabelAkun = () => {
   }, [session])
 
   return (
-    <div className=' max-w-[50%]'>
+    <div className=' max-w-[100%]'>
       <h2 className='font-bold'>
         Akun Karyawan
       </h2>
