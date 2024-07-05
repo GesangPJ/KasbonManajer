@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic'
 
+import TabelAkunAdmin from '@/views/tabel-akun/TabelAdmin'
+
 //Membuat komponen yang diimport menjadi dynamic page
 const TabelAkun = dynamic(()=>import('@views/tabel-akun/TabelAkun'),  {ssr:false})
+
 
 const DaftarAkun = () => {
 
@@ -10,6 +13,8 @@ const DaftarAkun = () => {
       <h1>Tabel Daftar Akun</h1>
       <br />
       <TabelAkun/>
+      <br />
+      <TabelAkunAdmin/>
     </div>
   )
 }
