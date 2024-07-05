@@ -13,6 +13,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import PauseCircleIcon from '@mui/icons-material/PauseCircle'
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
+import ListAltIcon from '@mui/icons-material/ListAlt'
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -104,7 +106,7 @@ const TabelAdmin = () => {
   }
 
   const columns = [
-    { field: 'no', headerName: 'No', width: 50 },
+    { field: 'no', headerName: 'No', width: 50, headerClassName:'app-theme--header', },
     {
       field: 'updatedAt',
       headerName: 'Tanggal/Jam',
@@ -154,6 +156,7 @@ const TabelAdmin = () => {
     },
     {
       field: 'detail',
+      disableExport: true,
       headerName: 'Detail',
       headerClassName:'app-theme--header',
       width: 100,
@@ -166,53 +169,74 @@ const TabelAdmin = () => {
   ]
 
   return (
-    <Box
-      sx={{
-        height: 400,
-        width: '100%',
-        '& .app-theme--header': {
-          fontWeight: 'bold',
-          fontSize: '1.1rem', // Adjust as needed
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        slots={{ toolbar: GridToolbar, printOptions:{
-          pageStyle: '.MuiDataGrid-root .MuiDataGrid-main { color: rgba(0, 0, 0, 0.87); }',
-        } }}
-        sx={{
-          '@media print': {
-            '.MuiDataGrid-main': {
-              color: 'rgba(0, 0, 0, 0.87)',
-              backgroundColor: 'white',
-              '-webkit-print-color-adjust': 'exact', // Ensure colors print correctly
+    <div>
+      <div>
+          <Box
+          sx={{
+            height: 400,
+            width: '100%',
+            '& .app-theme--header': {
+              fontWeight: 'bold',
+              fontSize: '1.1rem', // Adjust as needed
             },
-            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
-              color: 'rgba(0, 0, 0, 0.87)',
-              '-webkit-print-color-adjust': 'exact',
-            },
-            '.MuiDataGrid-toolbarContainer': {
-              display: 'none',
-            },
-          },
-          boxShadow: 2,
-          border: 2,
-          borderColor: 'primary.light',
-          '& .MuiDataGrid-cell:hover': {
-            color: 'primary.main',
-          },
-        }}
-        columns={columns}
-        pageSize={5}
-        pageSizeOptions={[5, 10, 25, 50, 100]}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        loading={loading}
-        getRowId={(row) => row.id} // Tetap gunakan ID asli untuk identifikasi baris
-      />
-    </Box>
+          }}
+        >
+          <DataGrid
+            rows={rows}
+            slots={{ toolbar: GridToolbar, printOptions:{
+              pageStyle: '.MuiDataGrid-root .MuiDataGrid-main { color: rgba(0, 0, 0, 0.87); }',
+              hideToolbar: true,
+              hideFooter: true,
+            } }}
+            sx={{
+              '@media print': {
+                '.MuiDataGrid-main': {
+                  color: 'rgba(0, 0, 0, 0.87)',
+                  backgroundColor: 'white',
+                  '-webkit-print-color-adjust': 'exact', // Ensure colors print correctly
+                },
+                '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
+                  color: 'rgba(0, 0, 0, 0.87)',
+                  '-webkit-print-color-adjust': 'exact',
+                },
+              },
+              boxShadow: 2,
+              border: 2,
+              borderColor: 'primary.light',
+              '& .MuiDataGrid-cell:hover': {
+                color: 'primary.main',
+              },
+            }}
+            columns={columns}
+            pageSize={5}
+            pageSizeOptions={[5, 10, 25, 50, 100]}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+            loading={loading}
+            getRowId={(row) => row.id} // Tetap gunakan ID asli untuk identifikasi baris
+          />
+        </Box>
+      </div>
+      <br />
+      <br />
+      <div>
+      <Box sx={{ display: 'flex', gap: 15, flexWrap: 'wrap' }}>
+        <Button variant='outlined' color="error" size="large" startIcon={<PictureAsPdfIcon/>} sx={ { borderRadius: 30 } }>
+          PDF Export
+        </Button>
+        <Button variant='outlined' color="success" startIcon={<ListAltIcon/>} sx={ { borderRadius: 30 } }>
+          Export XLSX
+        </Button>
+        <Button variant='outlined' color="primary" size="large" sx={ { borderRadius: 30 } }>
+          Docx
+        </Button>
+      </Box>
+
+      </div>
+
+    </div>
+
   )
 }
 
