@@ -1,8 +1,6 @@
 'use client'
 
-
-
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 import { useParams, useRouter } from 'next/navigation'
 
@@ -20,7 +18,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import { jsPDF } from "jspdf"
 import autoTable from 'jspdf-autotable'
-
+import { utils, writeFileXLSX } from "xlsx"
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
@@ -39,6 +37,7 @@ const formatCurrency = (amount) => {
 }
 
 const DetailPage = () => {
+  const tbl = useRef(null)
   const params = useParams()
   const id = params.id
   const {data: session, status} = useSession()
@@ -49,7 +48,7 @@ const DetailPage = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (status === 'loading') return // Jangan lakukan apa pun saat sesi sedang dimuat
+    if (status === 'loading') return
 
     if (!session) {
       router.push('/error/401')
@@ -82,8 +81,6 @@ const DetailPage = () => {
         setLoading(false)
       }
     }
-
-
 
     fetchData()
   }, [id, session, status, router])
@@ -139,7 +136,7 @@ const DetailPage = () => {
       <h1>Detail Kasbon : {data.namaKaryawan} | ID : {data.userId} </h1>
       <br />
       <TableContainer component={Paper}>
-        <Table id="detail-table" sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
+        <Table id="detail-table" ref={tbl} sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
           <TableBody>
             {rows.map((row, index) => (
               <TableRow key={index}>
@@ -160,8 +157,13 @@ const DetailPage = () => {
         <Button variant='contained' color="error" onClick={handlePrint} size="large" startIcon={<PictureAsPdfIcon/>}>
           PDF Export
         </Button>
-        <Button variant='contained' color="success" onClick={handleExcelExport} size="large" startIcon={<ListAltIcon/>}>
-          Excel Export
+        <Button variant='contained' color="success"
+          onClick={() => {
+            const wb = utils.table_to_book(tbl.current)
+
+            writeFileXLSX(wb, "DetailKasbon.xlsx")
+          }} size="large" startIcon={<ListAltIcon/>}>
+                Export XLSX
         </Button>
         <Button variant='contained' color="primary" onClick={handleDocxExport} size="large">
           Docx
