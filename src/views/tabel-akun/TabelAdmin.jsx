@@ -39,7 +39,7 @@ const TabelAkunAdmin = () => {
   }, [session])
 
   return (
-    <div className='max-w-[50%]'>
+    <div className='max-w-[100%]'>
       <h2 className='font-bold'>
         Akun Admin
       </h2>
