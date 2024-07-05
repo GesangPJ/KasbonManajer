@@ -2,6 +2,8 @@
 
 'use client'
 
+import { useEffect } from 'react'
+
 import { useRouter } from 'next/navigation'
 
 import { useSession } from 'next-auth/react'
@@ -11,12 +13,18 @@ import TabelAdmin from '@/views/kasbon-admin/KasbonAdmin'
 import TabelKaryawan from '@/views/kasbon-karyawan/KasbonKaryawan'
 
 const DashboardAnalytics = () => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
 
-  if (!session) {
-    router.push('/error/401')
+  useEffect(() => {
+    if (status === 'loading') return // Jangan lakukan apa pun saat sesi sedang dimuat
 
+    if (!session) {
+      router.push('/error/401')
+    }
+  }, [session, status, router])
+
+  if (!session) {
     return null
   }
 
