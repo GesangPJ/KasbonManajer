@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { useSession } from 'next-auth/react'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import Box from '@mui/material/Box'
@@ -178,7 +178,13 @@ const TabelAdmin = () => {
     >
       <DataGrid
         rows={rows}
+        slots={{ toolbar: GridToolbar, printOptions:{
+          pageStyle: '.MuiDataGrid-root .MuiDataGrid-main { color: rgba(0, 0, 0, 0.87); }',
+        } }}
         sx={{
+          '@media print': {
+            '.MuiDataGrid-main': { color: 'rgba(0, 0, 0, 0.87)' },
+              },
           boxShadow: 2,
           border: 2,
           borderColor: 'primary.light',
