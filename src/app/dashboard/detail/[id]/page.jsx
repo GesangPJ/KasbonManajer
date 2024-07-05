@@ -15,6 +15,12 @@ import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Button } from '@mui/material'
+import Box from '@mui/material/Box'
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
+import ListAltIcon from '@mui/icons-material/ListAlt'
+import { jsPDF } from "jspdf"
+import autoTable from 'jspdf-autotable'
+
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
@@ -112,12 +118,28 @@ const DetailPage = () => {
     { label: 'Tanggal Kasbon Diperbarui', value: formatDate(data.updatedAt) },
   ]
 
+  const handlePrint = () => {
+    const doc = new jsPDF()
+
+    autoTable(doc, { html: '#detail-table' })
+    doc.save('detail_kasbon.pdf')
+  }
+
+  const handleExcelExport = () => {
+    // Implement your Excel export logic here
+    exportToExcel(rows, 'detail_kasbon.xlsx')
+  }
+
+  const handleDocxExport = () => {
+    // Implement your Docx export logic here
+  }
+
   return (
     <div>
       <h1>Detail Kasbon : {data.namaKaryawan} | ID : {data.userId} </h1>
       <br />
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
+        <Table id="detail-table" sx={{ minWidth: 200 }} aria-label="Detail Kasbon">
           <TableBody>
             {rows.map((row, index) => (
               <TableRow key={index}>
@@ -131,9 +153,20 @@ const DetailPage = () => {
         </Table>
       </TableContainer>
       <br />
-      <Button variant='contained' color="primary" href="/dashboard" size="large">
-        &laquo; Dashboard
-      </Button>
+      <Box sx={{ display: 'flex', gap: 15, flexWrap: 'wrap' }}>
+        <Button variant='contained' color="primary" href="/dashboard" size="large" >
+          &laquo; Dashboard
+        </Button>
+        <Button variant='contained' color="error" onClick={handlePrint} size="large" startIcon={<PictureAsPdfIcon/>}>
+          PDF Export
+        </Button>
+        <Button variant='contained' color="success" onClick={handleExcelExport} size="large" startIcon={<ListAltIcon/>}>
+          Excel Export
+        </Button>
+        <Button variant='contained' color="primary" onClick={handleDocxExport} size="large">
+          Docx
+        </Button>
+      </Box>
     </div>
   )
 }
