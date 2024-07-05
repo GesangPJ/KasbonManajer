@@ -183,8 +183,19 @@ const TabelAdmin = () => {
         } }}
         sx={{
           '@media print': {
-            '.MuiDataGrid-main': { color: 'rgba(0, 0, 0, 0.87)' },
-              },
+            '.MuiDataGrid-main': {
+              color: 'rgba(0, 0, 0, 0.87)',
+              backgroundColor: 'white',
+              '-webkit-print-color-adjust': 'exact', // Ensure colors print correctly
+            },
+            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
+              color: 'rgba(0, 0, 0, 0.87)',
+              '-webkit-print-color-adjust': 'exact',
+            },
+            '.MuiDataGrid-toolbarContainer': {
+              display: 'none',
+            },
+          },
           boxShadow: 2,
           border: 2,
           borderColor: 'primary.light',
