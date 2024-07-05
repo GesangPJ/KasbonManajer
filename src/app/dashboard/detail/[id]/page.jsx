@@ -1,8 +1,12 @@
 'use client'
 
+
+
 import { useEffect, useState } from 'react'
 
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+
+import { useSession } from 'next-auth/react'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -11,19 +15,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Button } from '@mui/material'
-
-
-// const formatDate = (dateString) => {
-//   if (!dateString) return 'Invalid Date'
-//   const date = new Date(dateString)
-//   const day = String(date.getDate()).padStart(2, '0')
-//   const month = String(date.getMonth() + 1).padStart(2, '0')
-//   const year = date.getFullYear()
-//   const hours = String(date.getHours()).padStart(2, '0')
-//   const minutes = String(date.getMinutes()).padStart(2, '0')
-
-//   return `${day}-${month}-${year} ${hours}:${minutes}`
-// }
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Invalid Date'
@@ -44,12 +35,20 @@ const formatCurrency = (amount) => {
 const DetailPage = () => {
   const params = useParams()
   const id = params.id
+  const {data: session, status} = useSession()
+  const router = useRouter()
 
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (status === 'loading') return // Jangan lakukan apa pun saat sesi sedang dimuat
+
+    if (!session) {
+      router.push('/error/401')
+    }
+
     const fetchData = async () => {
       try {
         if (id) {
@@ -78,8 +77,14 @@ const DetailPage = () => {
       }
     }
 
+
+
     fetchData()
-  }, [id])
+  }, [id, session, status, router])
+
+  if (!session) {
+    return null
+  }
 
   if (loading) {
     return <div>Loading...</div>
