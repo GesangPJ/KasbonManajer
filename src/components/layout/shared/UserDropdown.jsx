@@ -99,25 +99,17 @@ const UserDropdown = () => {
                         {session?.user?.name || 'Nama Akun'}
                       </Typography>
                       <Typography variant="caption">
-                        {session?.user?.userType || 'Tipe Akun'}
+                        {session?.user?.email || 'Email Akun'}
                       </Typography>
                     </div>
                   </div>
                   <Divider className="mlb-1" />
-                  <MenuItem className="gap-3" onClick={handleDropdownClose}>
-                    <i className="ri-user-3-line" />
-                    <Typography color="text.primary">My Profile</Typography>
-                  </MenuItem>
-                  <MenuItem className="gap-3" onClick={handleDropdownClose}>
-                    <i className="ri-settings-4-line" />
-                    <Typography color="text.primary">Settings</Typography>
-                  </MenuItem>
                   <div className="flex items-center plb-2 pli-4">
                     <Button
                       fullWidth
                       variant="contained"
                       color="error"
-                      size="small"
+                      size="medium"
                       endIcon={<i className="ri-logout-box-r-line" />}
                       onClick={handleLogout}
                       sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}

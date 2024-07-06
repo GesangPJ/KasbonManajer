@@ -3,26 +3,15 @@
 import React, { useEffect, useState } from 'react'
 
 import { useSession } from 'next-auth/react'
-import { DataGrid } from '@mui/x-data-grid'
-import { Button } from '@mui/material'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
 const columns = [
   { field: 'no', headerName: 'No', width: 90 },
   { field: 'name', headerName: 'Nama', width: 200 },
   { field: 'email', headerName: 'Email', width: 200 },
-  {
-    field: 'edit',
-    headerName: 'Edit',
-    width: 100,
-    renderCell: (params) => (
-      <Button variant="contained" color="primary">
-        Edit
-      </Button>
-    ),
-  },
 ]
 
-const TabelAkun = () => {
+const TabelAkunAdmin = () => {
   const { data: session } = useSession()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
@@ -33,8 +22,7 @@ const TabelAkun = () => {
         try {
           const response = await fetch(`/api/tabel-akun?userId=${session.user.id}`)
           const data = await response.json()
-
-          const filteredData = data.filter(row => row.userType === 'KARYAWAN')
+          const filteredData = data.filter(row => row.userType === 'ADMIN')
 
           // Tambahkan nomor urut
           const numberedData = filteredData.map((row, index) => ({ ...row, no: index + 1 }))
@@ -51,9 +39,9 @@ const TabelAkun = () => {
   }, [session])
 
   return (
-    <div className=' max-w-[100%]'>
+    <div className='max-w-[100%]'>
       <h2 className='font-bold'>
-        Akun Karyawan
+        Akun Admin
       </h2>
       <DataGrid
         rows={rows}
@@ -65,6 +53,7 @@ const TabelAkun = () => {
             color: 'primary.main',
           },
         }}
+        slots={{ toolbar: GridToolbar }}
         columns={columns}
         pageSize={5}
         pageSizeOptions={[5, 10, 25, 50, 100]}
@@ -78,4 +67,4 @@ const TabelAkun = () => {
   )
 }
 
-export default TabelAkun
+export default TabelAkunAdmin

@@ -1,10 +1,16 @@
 
 
+import PrintLaporan from "@/views/print-laporan/PrintLaporan"
 
 const CetakKasbon = () =>{
   return(
     <div>
-      Halaman Print Kasbon
+      <div>
+        <h1>Print Laporan Kasbon</h1>
+      </div>
+      <div>
+        <PrintLaporan/>
+      </div>
     </div>
   )
 }

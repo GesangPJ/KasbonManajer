@@ -1,10 +1,20 @@
 import { NextResponse } from 'next/server'
 
+import { getToken } from 'next-auth/jwt'
+
 import bcrypt from 'bcrypt'
 
 import prisma from '@/app/lib/prisma'
 
 export const POST = async (req) => {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+
+  if (!token) {
+    console.log('Unauthorized Access : API Registrasi Akun')
+
+    return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
+  }
+
   try {
     const { email, password, name, userType } = await req.json()
 

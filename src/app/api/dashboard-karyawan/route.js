@@ -2,11 +2,21 @@
 
 import { NextResponse } from 'next/server'
 
+import { getToken } from 'next-auth/jwt'
+
 import prisma from '@/app/lib/prisma'
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const userId = searchParams.get('userId')
+
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+
+  if (!token) {
+    console.log('Unauthorized Access : API Dashboard Karyawan')
+
+    return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
+  }
 
   if (!userId) {
     return NextResponse.json({ error: 'User ID tidak ditemukan' }, { status: 400 })
@@ -36,7 +46,29 @@ export async function GET(req) {
       updatedAt: kasbon.updatedAt.toISOString(),
     }))
 
-    return NextResponse.json(formattedKasbons, { status: 200 })
+    // Menghitung jumlah total, total setuju, total lunas, dan belum lunas
+    const jumlahTotal = kasbons.reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+    // Kasbon Yang Disetujui
+    const TotalSetuju = kasbons
+      .filter(kasbon => kasbon.status_r === 'SETUJU')
+      .reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+      // Kasbon yang sudah LUNAS
+    const TotalLunas = kasbons
+      .filter(kasbon => kasbon.status_b === 'LUNAS')
+      .reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+      // Kasbon yang Belum Lunas
+    const belumLunas = jumlahTotal - TotalLunas
+
+    return NextResponse.json({
+      kasbons: formattedKasbons,
+      jumlahTotal,
+      TotalSetuju,
+      TotalLunas,
+      belumLunas
+    }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ error: 'Terjadi kesalahan saat mengambil data kasbon' }, { status: 500 })
   }

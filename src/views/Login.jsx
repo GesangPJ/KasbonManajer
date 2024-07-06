@@ -86,7 +86,7 @@ const Login = () => {
                 }}
               />
               {error && <Alert severity='error'>{error}</Alert>}
-              <Button fullWidth variant='contained' type='submit'>
+              <Button fullWidth variant='contained' type='submit' sx={ { borderRadius: 30 } }>
                 Masuk
               </Button>
               <Divider className='gap-3'></Divider>
