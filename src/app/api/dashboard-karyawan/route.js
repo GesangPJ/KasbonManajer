@@ -10,7 +10,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const userId = searchParams.get('userId')
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const token = await getToken({ req: req, secret: process.env.NEXTAUTH_SECRET })
 
   if (!token) {
     console.log('Unauthorized Access : API Dashboard Karyawan')
