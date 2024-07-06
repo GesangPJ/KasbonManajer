@@ -59,7 +59,29 @@ export async function GET(req) {
       namaAdmin: kasbon.admin?.name || '-',
     }))
 
-    return NextResponse.json(formattedKasbons, { status: 200 })
+    // Menghitung jumlah total, total setuju, total lunas, dan belum lunas
+    const jumlahTotal = kasbons.reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+    // Kasbon Yang Disetujui
+    const TotalSetuju = kasbons
+      .filter(kasbon => kasbon.status_r === 'SETUJU')
+      .reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+      // Kasbon yang sudah LUNAS
+    const TotalLunas = kasbons
+      .filter(kasbon => kasbon.status_b === 'LUNAS')
+      .reduce((acc, kasbon) => acc + kasbon.jumlah, 0)
+
+      // Kasbon yang Belum Lunas
+    const belumLunas = jumlahTotal - TotalLunas
+
+    return NextResponse.json({
+      kasbons: formattedKasbons,
+      jumlahTotal,
+      TotalSetuju,
+      TotalLunas,
+      belumLunas
+    }, { status: 200 })
   } catch (error) {
     console.error('Error fetching kasbon data:', error)
 
