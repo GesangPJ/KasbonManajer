@@ -325,16 +325,16 @@ const TabelAdmin = () => {
       <br />
       <div>
         <Box>
-          <Typography variant='caption'>
+          <Typography variant='subtitle1'>
           Jumlah Total Kasbon Diminta : {formatCurrency(totals.jumlahTotal)}
           </Typography><br />
-          <Typography variant='caption'>
+          <Typography variant='subtitle1'>
             Jumlah Total Kasbon Setuju : {formatCurrency(totals.TotalSetuju)}
             </Typography><br />
-          <Typography variant='caption'>
+          <Typography variant='subtitle1'>
             Jumlah Total Kasbon Lunas : {formatCurrency(totals.TotalLunas)}
             </Typography><br />
-          <Typography variant='caption'>
+          <Typography variant='subtitle1'>
             Jumlah Total Kasbon Belum Lunas : {formatCurrency(totals.belumLunas)}
             </Typography>
         </Box>
