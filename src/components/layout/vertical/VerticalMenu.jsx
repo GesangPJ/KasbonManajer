@@ -84,7 +84,7 @@ const VerticalMenu = ({ scrollMenu }) => {
               icon={<i className='ri-file-chart-fill' />}
             >
               <MenuItem href='/dashboard/laporan'>Laporan Kasbon</MenuItem>
-              <MenuItem href='/dashboard/cetak'>Export / Print</MenuItem>
+              <MenuItem href='/dashboard/cetak'>Ekspor Laporan</MenuItem>
             </SubMenu>
             <SubMenu
               label='Manajemen Akun'
