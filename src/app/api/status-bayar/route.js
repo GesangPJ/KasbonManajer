@@ -3,15 +3,17 @@
 
 import { NextResponse } from "next/server"
 
-import { getToken } from "next-auth/jwt"
+import { getServerSession } from "next-auth/next"
+
+import { authOptions } from "../auth/[...nextauth]/route"
 
 import prisma from "@/app/lib/prisma"
 
 export const PUT = async (req) => {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const session = await getServerSession(req, { req }, authOptions)
 
-  if (!token) {
-    console.log('Unauthorized Access : API Set Status Bayar')
+  if (!session) {
+    console.log('Unauthorized Access : API SET Status Bayar')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
   }
