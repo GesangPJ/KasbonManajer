@@ -10,7 +10,7 @@ import prisma from '@/app/lib/prisma'
 
 export async function GET(req) {
   const session = await getServerSession(req, { req }, authOptions)
-
+  
   if (!session) {
     console.log('Unauthorized Access : API Dashboard Karyawan')
 
