@@ -9,6 +9,11 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 
 ## Changelog
 
+### v.1.0.10 Update Patch
+
+- Fix API Endpoint protection error
+- Refactor some codes
+
 ### v.1.0.7PG-Release
 
 - Rilis pertama
