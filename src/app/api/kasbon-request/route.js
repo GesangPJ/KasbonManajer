@@ -3,22 +3,24 @@
 
 import { NextResponse } from "next/server"
 
-import { getToken } from 'next-auth/jwt'
+import { getServerSession } from "next-auth/next"
+
+import { authOptions } from "../auth/[...nextauth]/route"
 
 import prisma from "@/app/lib/prisma"
 
 export async function GET(req) {
-  const { searchParams } = new URL(req.url)
-  const userId = searchParams.get('userId')
-  const statusR = "BELUM"
+  const session = await getServerSession(req, { req }, authOptions)
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-
-  if (!token) {
-    console.log('Unauthorized Access : API Kasbon Request')
+  if (!session) {
+    console.log('Unauthorized Access : API Ambil Kasbon Request')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
   }
+
+  const { searchParams } = new URL(req.url)
+  const userId = searchParams.get('userId')
+  const statusR = "BELUM"
 
   if (!userId) {
     return NextResponse.json({ error: 'User ID tidak ditemukan' }, { status: 400 })

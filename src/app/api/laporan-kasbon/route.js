@@ -4,26 +4,28 @@
 
 import { NextResponse } from "next/server"
 
-import { getToken } from 'next-auth/jwt'
-
 import dayjs from 'dayjs'
+
+import { getServerSession } from "next-auth/next"
+
+import { authOptions } from "../auth/[...nextauth]/route"
 
 import prisma from "@/app/lib/prisma"
 
 export async function GET(req){
-  const url = new URL(req.url)
-  const bulanTahun = url.searchParams.get('bulanTahun')
+  const session = await getServerSession(req, { req }, authOptions)
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-
-  const startDate = dayjs(bulanTahun).startOf('month').toDate()
-  const endDate = dayjs(bulanTahun).endOf('month').toDate()
-
-  if (!token) {
-    console.log('Unauthorized Access : API Laporan Kasbon')
+  if (!session) {
+    console.log('Unauthorized Access : API Ambil Laporan Bulanan')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
   }
+
+  const url = new URL(req.url)
+  const bulanTahun = url.searchParams.get('bulanTahun')
+
+  const startDate = dayjs(bulanTahun).startOf('month').toDate()
+  const endDate = dayjs(bulanTahun).endOf('month').toDate()
 
   const kasbons = await prisma.kasbon.findMany({
     where: {

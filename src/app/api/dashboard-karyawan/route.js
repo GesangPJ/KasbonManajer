@@ -2,24 +2,26 @@
 
 import { NextResponse } from 'next/server'
 
-import { getToken } from 'next-auth/jwt'
+import { getServerSession } from "next-auth/next"
+
+import { authOptions } from "../auth/[...nextauth]/route"
 
 import prisma from '@/app/lib/prisma'
 
 export async function GET(req) {
-  const { searchParams } = new URL(req.url)
-  const userId = searchParams.get('userId')
-
-  const token = await getToken({ req: req, secret: process.env.NEXTAUTH_SECRET })
-
-  if (!token) {
+  const session = await getServerSession(req, { req }, authOptions)
+  
+  if (!session) {
     console.log('Unauthorized Access : API Dashboard Karyawan')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
   }
 
+  const { searchParams } = new URL(req.url)
+  const userId = searchParams.get('userId')
+
   if (!userId) {
-    return NextResponse.json({ error: 'User ID tidak ditemukan' }, { status: 400 })
+    return NextResponse.json({ error: 'ID tidak ditemukan!' }, { status: 400 })
   }
 
   try {
