@@ -2,16 +2,16 @@
 
 import { NextResponse } from 'next/server'
 
-import { getServerSession } from "next-auth/next"
-
-import { authOptions } from "../auth/[...nextauth]/route"
+import { getToken } from 'next-auth/jwt'
 
 import prisma from '@/app/lib/prisma'
 
 export const POST = async (req) => {
-  const session = await getServerSession(req, { req }, authOptions)
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
-  if (!session) {
+  console.log('Token:', token)
+
+  if (!token) {
     console.log('Unauthorized Access : API Tambah Kasbon')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
