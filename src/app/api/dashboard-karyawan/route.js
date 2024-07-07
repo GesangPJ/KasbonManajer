@@ -11,13 +11,7 @@ import prisma from '@/app/lib/prisma'
 export async function GET(req) {
   const session = await getServerSession(req, { req }, authOptions)
 
-<<<<<<< Updated upstream
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-
-  if (!token) {
-=======
   if (!session) {
->>>>>>> Stashed changes
     console.log('Unauthorized Access : API Dashboard Karyawan')
 
     return NextResponse.json({ error: 'Unauthorized Access' }, { status: 401 })
