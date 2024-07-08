@@ -11,7 +11,7 @@
  */
 const themeConfig = {
   templateName: 'KASBON MANAGER',
-  settingsCookieName: 'materio-mui-next-free-demo',
+  settingsCookieName: 'kasbon-manager',
   mode: 'dark', // 'light', 'dark'
   layoutPadding: 24, // Common padding for header, content, footer layout components (in px)
   compactContentWidth: 1440, // in px
