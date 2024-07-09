@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
 import ResetPasswordKaryawan from "@/views/reset-password/resetpassword-karyawan"
+import ResetPasswordAdmin from '@/views/reset-password/resetpassword-admin'
+
 
 const ResetPasswordAkun = () =>{
   const { data: session, status } = useSession()
@@ -32,6 +34,9 @@ const ResetPasswordAkun = () =>{
         <ResetPasswordKaryawan/>
       </div>
       <br />
+      <div>
+        <ResetPasswordAdmin/>
+      </div>
     </div>
   )
 }
