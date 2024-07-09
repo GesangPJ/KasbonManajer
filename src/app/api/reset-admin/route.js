@@ -13,6 +13,7 @@ import prisma from "@/app/lib/prisma"
 
 export const PUT = async (req) =>{
   const token = await getToken({req, secret: process.env.NEXTAUTH_SECRET})
+  const resetKey = process.env.ADMIN_KEY
 
   console.log('Token: ', token)
 
@@ -23,10 +24,14 @@ export const PUT = async (req) =>{
   }
 
   try{
-    const {email, password} =await req.json()
+    const {email, password, masterKey} =await req.json()
 
-    if(!email || !password){
+    if(!email || !password || !masterKey){
       return NextResponse.json({error:"Data tidak boleh kosong!"}, {status:400})
+    }
+
+    if (masterKey !== resetKey) {
+      return NextResponse.json({ error: "Master Key salah!" }, { status: 403 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
