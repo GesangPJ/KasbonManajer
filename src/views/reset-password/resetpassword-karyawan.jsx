@@ -58,7 +58,7 @@ const ResetPasswordKaryawan = () => {
 
       if (response.ok) {
         setStatus('success')
-        setMessage('Password berhasil diganti!')
+        setMessage('Password Karyawan berhasil diganti!')
         formRef.current.reset() // Kosongkan form setelah berhasil diganti
       } else {
         setStatus('error')
