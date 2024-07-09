@@ -7,19 +7,6 @@
 Aplikasi Manajemen Kasbon pengembangan lebih lanjut dari versi sebelumnya (Kasbon-JS),
 menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan tersedia di Branch lain).
 
-## Changelog
-
-### v.1.0.10 Update Patch
-
-- Fix API Endpoint protection error
-- Refactor some codes
-
-### v.1.0.7PG-Release
-
-- Rilis pertama
-- PostgreSQL Version
-- Semua fitur kasbon (tambah, ganti status, ambil laporan perbulan, export ke pdf ; excel ; json)
-
 ## Fitur Website
 
 1. App Router.
@@ -39,3 +26,22 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 5. Export kasbon ke PDF, Excel, JSON.
 6. Mengambil Laporan Kasbon per Bulan.
 7. Menampilkan jumlah total nilai kasbon yang diminta, yang telah disetujui, yang telah lunas, yang belum lunas.
+
+## Changelog
+
+### v.1.1.7 Update Patch #2
+
+- Add Reset Password for Karyawan
+- Add Reset Password for Admin
+- Add master Key validation for Admin password reset
+
+### v.1.0.10 Update Patch #1
+
+- Fix API Endpoint protection error
+- Refactor some codes
+
+### v.1.0.7PG-Release
+
+- Rilis pertama
+- PostgreSQL Version
+- Semua fitur kasbon (tambah, ganti status, ambil laporan perbulan, export ke pdf ; excel ; json)
