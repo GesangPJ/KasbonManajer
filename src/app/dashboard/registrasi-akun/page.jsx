@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react'
 
+import { useRouter } from 'next/navigation'
+
+import { useSession } from 'next-auth/react'
+
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -15,20 +19,32 @@ import FormControl from '@mui/material/FormControl'
 import Alert from '@mui/material/Alert'
 
 const RegistrasiAkun = () => {
-  const [status, setStatus] = useState(null)
+  const {data: session, status} = useSession()
+  const [alert, setAlert] = useState(null)
   const [message, setMessage] = useState('')
   const formRef = useRef(null)
+  const router = useRouter()
 
   useEffect(() => {
-    if (status) {
+    if (status === 'loading') return // Jangan lakukan apa pun saat sesi sedang dimuat
+
+    if (!session) {
+      router.push('/error/401')
+    }
+
+    if (alert) {
       const timer = setTimeout(() => {
-        setStatus(null)
+        setAlert(null)
         setMessage('')
       }, 5000)
 
       return () => clearTimeout(timer)
     }
-  }, [status])
+  }, [session, status, router, alert])
+
+  if (!session) {
+    return null
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -53,15 +69,15 @@ const RegistrasiAkun = () => {
       const result = await response.json()
 
       if (response.ok) {
-        setStatus('success')
+        setAlert('success')
         setMessage('Akun berhasil didaftarkan!')
         formRef.current.reset() // Kosongkan form setelah berhasil didaftarkan
       } else {
-        setStatus('error')
+        setAlert('error')
         setMessage(result.error || 'Terjadi kesalahan saat mendaftarkan akun.')
       }
     } catch (error) {
-      setStatus('error')
+      setAlert('error')
       setMessage('Terjadi kesalahan saat mendaftarkan akun.')
     }
   }
@@ -71,8 +87,8 @@ const RegistrasiAkun = () => {
       <Card>
         <CardHeader title='Registrasi Akun' />
         <CardContent>
-          {status && (
-            <Alert severity={status} style={{ marginBottom: '1rem' }}>
+          {alert && (
+            <Alert severity={alert} style={{ marginBottom: '1rem' }}>
               {message}
             </Alert>
           )}
