@@ -93,6 +93,13 @@ const VerticalMenu = ({ scrollMenu }) => {
               <MenuItem href='/dashboard/registrasi-akun'>Registrasi Akun</MenuItem>
               <MenuItem href='/dashboard/reset-password-akun'>Reset Password Akun</MenuItem>
             </SubMenu>
+            <SubMenu
+              label='Bantuan'
+              icon={<i class="ri-question-line"></i>}
+            >
+              <MenuItem href='/dashboard/bantuan'>Penggunaan</MenuItem>
+              <MenuItem href='/dashboard/dokumentasi-api'>Dokumentasi API</MenuItem>
+            </SubMenu>
           </>
         )}
 
@@ -111,6 +118,12 @@ const VerticalMenu = ({ scrollMenu }) => {
               >
                 <MenuItem href='/dashboard/tambah-kasbon'>Tambah Kasbon</MenuItem>
               </SubMenu>
+              <SubMenu
+              label='Bantuan'
+              icon={<i class="ri-question-line"></i>}
+            >
+              <MenuItem href='/dashboard/bantuan'>Penggunaan</MenuItem>
+            </SubMenu>
             </MenuSection>
           </>
         )}
