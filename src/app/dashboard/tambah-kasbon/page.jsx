@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { useSession } from 'next-auth/react'
 
 import Card from '@mui/material/Card'
@@ -17,21 +19,32 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 
 const TambahKasbon = () =>{
-  const { data: session } = useSession()
-  const [status, setStatus] = useState(null)
+  const { data: session, status } = useSession()
+  const [alert, setAlert] = useState(null)
   const [message, setMessage] = useState('')
   const formRef = useRef(null)
+  const router = useRouter()
 
   useEffect(() => {
-    if (status) {
+    if(status === 'loading') return
+
+    if(!session){
+      router.push('/error/401')
+    }
+
+    if (alert) {
       const timer = setTimeout(() => {
-        setStatus(null)
+        setAlert(null)
         setMessage('')
       }, 5000)
 
       return () => clearTimeout(timer)
     }
-  }, [status])
+  }, [alert, session, status, router])
+
+  if(!session){
+    return null
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -39,7 +52,7 @@ const TambahKasbon = () =>{
 
     // Validasi form sebelum mengirimkan
   if (!data.get('jumlah') || !data.get('keterangan') || !data.get('metode')) {
-    setStatus('error')
+    setAlert('error')
     setMessage('Semua bidang harus diisi.')
 
     return
@@ -64,15 +77,15 @@ const TambahKasbon = () =>{
       const result = await response.json()
 
       if (response.ok) {
-        setStatus('success')
+        setAlert('success')
         setMessage('Permintaan Kasbon berhasil dikirim!')
         formRef.current.reset() // Kosongkan form setelah berhasil didaftarkan
       } else {
-        setStatus('error')
+        setAlert('error')
         setMessage(result.error || 'Terjadi kesalahan saat mengirim data permintaan kasbon.')
       }
     } catch (error) {
-      setStatus('error')
+      setAlert('error')
       setMessage('Terjadi kesalahan saat mengirim data.')
     }
   }
@@ -82,8 +95,8 @@ const TambahKasbon = () =>{
       <Card>
         <CardHeader title='Form Permintaan Kasbon' />
         <CardContent>
-          {status && (
-            <Alert severity={status} style={{ marginBottom: '1rem' }}>
+          {alert && (
+            <Alert severity={alert} style={{ marginBottom: '1rem' }}>
               {message}
             </Alert>
           )}
