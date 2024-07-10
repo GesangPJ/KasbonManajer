@@ -14,8 +14,9 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 3. Json Web Token (JWT) untuk mengamankan session.
 4. MUI DataGrid untuk penyajian data lebih baik.
 5. Multi-Role account, akun terbagi menjadi 2 tipe : Admin dan Karyawan.
-6. Bcrypt x rounds untuk password hashing.
+6. Bcrypt untuk password hashing.
 7. API Protection menggunakan JWT Token Validation.
+8. Pages protection menggunakan session.
 
 ## Fitur Kasbon
 
@@ -37,17 +38,17 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 
 ### v.1.1.7 Update Patch #2
 
-- Add Reset Password for Karyawan
-- Add Reset Password for Admin
-- Add master Key validation for Admin password reset
+- Add Reset Password for Karyawan.
+- Add Reset Password for Admin.
+- Add master Key validation for Admin password reset.
 
 ### v.1.0.10 Update Patch #1
 
-- Fix API Endpoint protection error
-- Refactor some codes
+- Fix API Endpoint protection error.
+- Refactor some codes.
 
 ### v.1.0.7PG-Release
 
-- Rilis pertama
-- PostgreSQL Version
-- Semua fitur kasbon (tambah, ganti status, ambil laporan perbulan, export ke pdf ; excel ; json)
+- Rilis pertama.
+- PostgreSQL Version.
+- Semua fitur kasbon (tambah, ganti status, ambil laporan perbulan, export ke pdf ; excel ; json).
