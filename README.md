@@ -27,8 +27,17 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 5. Export kasbon ke PDF, Excel, JSON.
 6. Mengambil Laporan Kasbon per Bulan.
 7. Menampilkan jumlah total nilai kasbon yang diminta, yang telah disetujui, yang telah lunas, yang belum lunas.
+8. Halaman Bantuan yang berisi penjelasan setiap halaman dan bagaimana cara mengirim dan menampilkan data.
 
 ## Changelog
+
+### v.1.2.7 Update Patch #4
+
+- Add Bantuan page.
+- Add Dokumentasi API page.
+- Add Tentang Page.
+- Sidebar Update.
+- Refactor some codes.
 
 ### v.1.1.8 Update Patch #3
 

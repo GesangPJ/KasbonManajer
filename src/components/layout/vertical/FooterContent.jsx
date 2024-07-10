@@ -25,6 +25,12 @@ const FooterContent = () => {
       </p>
       {!isBreakpointReached && (
         <div className='flex items-center gap-4'>
+          <Link href='/dashboard/bantuan' className='text-primary'>
+            Bantuan
+          </Link>
+          <Link href='/dashboard/tentang' className='text-primary'>
+            Tentang
+          </Link>
           <Link href='https://github.com/GesangPJ' target='_blank' className='text-primary'>
             GitHub Page
           </Link>
