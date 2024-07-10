@@ -29,6 +29,12 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 
 ## Changelog
 
+### v.1.1.8 Update Patch #3
+
+- Add more page protection.
+- Refactor some codes.
+- Remove unused files.
+
 ### v.1.1.7 Update Patch #2
 
 - Add Reset Password for Karyawan
