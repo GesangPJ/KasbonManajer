@@ -30,6 +30,14 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 
 ## Changelog
 
+### v.1.2.7 Update Patch #4
+
+- Add Bantuan page.
+- Add Dokumentasi API page.
+- Add Tentang Page.
+- Sidebar Update.
+- Refactor some codes.
+
 ### v.1.1.8 Update Patch #3
 
 - Add more page protection.
