@@ -14,8 +14,9 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 3. Json Web Token (JWT) untuk mengamankan session.
 4. MUI DataGrid untuk penyajian data lebih baik.
 5. Multi-Role account, akun terbagi menjadi 2 tipe : Admin dan Karyawan.
-6. Bcrypt x rounds untuk password hashing.
+6. Bcrypt untuk password hashing.
 7. API Protection menggunakan JWT Token Validation.
+8. Pages protection menggunakan session
 
 ## Fitur Kasbon
 
@@ -28,6 +29,11 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 7. Menampilkan jumlah total nilai kasbon yang diminta, yang telah disetujui, yang telah lunas, yang belum lunas.
 
 ## Changelog
+
+### v.1.1.8 Update Patch #3
+- Add more page protection.
+- Refactor some codes.
+- Remove unused files.
 
 ### v.1.1.7 Update Patch #2
 
