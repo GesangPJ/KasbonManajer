@@ -39,6 +39,18 @@ https://github.com/GesangPJ/KasbonManajer/assets/26625652/bd2fe23c-ba7d-4281-9fc
 11. Reset Password Akun Karyawan.
 12. Reset Password Akun Admin.
 
+# Container Deploy
+
+Docker compose sudah tersedia. Gunakan sesuai versi image (PostgreSQL / SQLite)
+jangan lupa dengan environment variables yang ada.
+
+# Container Image
+
+Container Image tersedia di repository package (ghcr.io)
+
+- kasbon-manager-pg : adalah versi dengan PostgreSQL
+- kasbon-manager-sqlite : adalah versi dengan SQLite
+
 ## Changelog
 
 ### v.1.3.1 Update Patch #5
