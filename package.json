@@ -35,6 +35,7 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
     "exceljs": "^4.4.0",
+    "fast-loops": "^1.1.4",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
