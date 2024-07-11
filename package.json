@@ -12,10 +12,10 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "build:icons": "tsx src/assets/iconify-icons/bundle-icons-css.js",
-    "postinstall": "prisma generate && npm run build:icons && npm run seedAdmin && npm run seedKaryawan ",
-    "seedAdmin": "node prisma/seedAdmin.js",
-    "seedKaryawan": "node prisma/seedKaryawan.js",
-    "deleteKasbon": "node prisma/deleteKasbon.js"
+    "postinstall": "prisma generate && npm run build:icons",
+    "seedadmin": "node prisma/seedAdmin.js",
+    "seedkaryawan": "node prisma/seedKaryawan.js",
+    "deletekasbon": "node prisma/deleteKasbon.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
