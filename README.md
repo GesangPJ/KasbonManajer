@@ -7,10 +7,7 @@
 Aplikasi Manajemen Kasbon pengembangan lebih lanjut dari versi sebelumnya (Kasbon-JS),
 menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan tersedia di Branch lain).
 
-
 https://github.com/GesangPJ/KasbonManajer/assets/26625652/bd2fe23c-ba7d-4281-9fc3-c162a7805261
-
-
 
 ## Fitur Website
 
@@ -44,12 +41,61 @@ https://github.com/GesangPJ/KasbonManajer/assets/26625652/bd2fe23c-ba7d-4281-9fc
 Docker compose sudah tersedia. Gunakan sesuai versi image (PostgreSQL / SQLite)
 jangan lupa dengan environment variables yang ada.
 
-# Container Image
+## Container Image
 
 Container Image tersedia di repository package (ghcr.io)
 
 - kasbon-manager-pg : adalah versi dengan PostgreSQL
 - kasbon-manager-sqlite : adalah versi dengan SQLite
+
+## SQLite Version
+
+Versi SQLite tersedia di branch "SQLiteVersion"
+
+file database SQLite berada di `/prisma/dev.db`
+
+buka `schema.prisma` untuk mengganti koneksi dan schema.
+
+Dengan menggunakan versi SQLite ini maka tidak perlu install database lain seperti PostgreSQL atau MySQL.
+
+## Instalasi
+
+### Install PostgreSQL Version
+
+1. Clone repository ini.
+2. Buka folder repository di pc local anda.
+3. Ubah file `.env.example` >> `.env`
+4. Isi nilai `NEXTAUTH_SECRET` dengan menggunakan `openssl rand -base64 32` untuk generate secret key dan copy ke `NEXTAUTH_SECRET`
+5. Isi nilai `NEXTAUTH_URL` dengan `http://localhost:3000` jika dijalankan di local pc, atau domain lain jika dijalankan di hosting / cloud.
+6. Buka `schema.prisma` , jika anda menggunakan PostgreSQL secara lokal maka ganti nilai `url=` dengan `env("DATABASE_URL")`
+7. Kemudian Isi `DATABASE_URL` dengan contoh nilai : `postgresql://<nama akun>:<password>@localhost:<port>/<nama database>`
+8. Jika menggunakan PostgreSQL dari Vercel, maka ganti nilai `url=` dengan `env("POSTGRES_PRISMA_URL")` dan tambahkan `directUrl = env("POSTGRES_URL_NON_POOLING")` dibawahnya.
+9. Kemudian isi nilai `POSTGRES_PRISMA_URL` di file `.env` dengan URL dari PostgreSQL di Vercel, begitu juga dengan nilai `POSTGRES_URL_NON_POOLING`
+10. Isi nilai `ADMIN_KEY` dengan secret key anda sendiri (ini digunakan agar admin dapat mengganti nama / email / password akun lainnya.)
+11. Setelah semua terisi dan benar. maka jalankan `npm install`.
+12. Kemudian jalankan `npx prisma migrate deploy`.
+13. Kemudian jalankan `npx prisma generate`.
+14. Setelah selesai maka jalankan `npm run seedadmin` untuk membuat akun admin.
+15. Kemudian jalankan `npm run seedkaryawan` untuk membuat akun karyawan.
+16. Email dan Password dari kedua akun dapat dilihat dan diganti di `/prisma/seedAdmin.js` dan `/prisma/seedKaryawan.js`.
+17. Kemudian Build project dengan menjalankan `npm run build`.
+
+### Install SQLite Version
+
+1. Clone repository branch `SQLiteVersion`
+2. Buka folder repository di pc local anda.
+3. Ubah file `.env.example` >> `.env`.
+4. Isi nilai `NEXTAUTH_SECRET` dengan menggunakan `openssl rand -base64 32` untuk generate secret key dan copy ke `NEXTAUTH_SECRET`.
+5. Isi nilai `NEXTAUTH_URL` dengan `http://localhost:3000` jika dijalankan di local pc, atau domain lain jika dijalankan di hosting / cloud.
+6. Buka `schema.prisma` dan pastikan bahwa `provider = "sqlite"` dan `url = "file:./dev.db"` ini berarti Prisma menggunakan SQlite sebagai database dan file database terletak di `/prisma/dev.db`.
+7. Isi nilai `ADMIN_KEY` dengan secret key anda sendiri (ini digunakan agar admin dapat mengganti nama / email / password akun lainnya.)
+8. Setelah semua terisi dan benar. maka jalankan `npm install`.
+9. Kemudian jalankan `npx prisma migrate deploy`.
+10. Kemudian jalankan `npx prisma generate`.
+11. Setelah selesai maka jalankan `npm run seedadmin` untuk membuat akun admin.
+12. Kemudian jalankan `npm run seedkaryawan` untuk membuat akun karyawan.
+13. Email dan Password dari kedua akun dapat dilihat dan diganti di `/prisma/seedAdmin.js` dan `/prisma/seedKaryawan.js`.
+14. Kemudian Build project dengan menjalankan `npm run build`.
 
 ## Changelog
 
