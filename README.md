@@ -7,7 +7,6 @@
 Aplikasi Manajemen Kasbon pengembangan lebih lanjut dari versi sebelumnya (Kasbon-JS),
 menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan tersedia di Branch lain).
 
-
 https://github.com/GesangPJ/KasbonManajer/assets/26625652/bd2fe23c-ba7d-4281-9fc3-c162a7805261
 
 ## Fitur Website
@@ -37,9 +36,9 @@ https://github.com/GesangPJ/KasbonManajer/assets/26625652/bd2fe23c-ba7d-4281-9fc
 11. Reset Password Akun Karyawan.
 12. Reset Password Akun Admin.
 
-## Container Deploy
+# Container Deploy
 
-Docker compose sudah tersedia. Gunakan sesuai versi image (PostgreSQL (pg) / SQLite (sqlite))
+Docker compose sudah tersedia. Gunakan sesuai versi image (PostgreSQL / SQLite)
 jangan lupa dengan environment variables yang ada.
 
 ## Container Image
