@@ -17,6 +17,7 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 6. Bcrypt untuk password hashing.
 7. API Protection menggunakan JWT Token Validation.
 8. Pages protection menggunakan session.
+9. Admin Master Key autentikasi bagi admin untuk mengganti password akun dan data akun.
 
 ## Fitur Kasbon
 
@@ -28,8 +29,19 @@ menggunakan NextJS 14 Full Stack dengan Database PostgreSQL atau SQLite (akan te
 6. Mengambil Laporan Kasbon per Bulan.
 7. Menampilkan jumlah total nilai kasbon yang diminta, yang telah disetujui, yang telah lunas, yang belum lunas.
 8. Halaman Bantuan yang berisi penjelasan setiap halaman dan bagaimana cara mengirim dan menampilkan data.
+9. Edit Data Akun Karyawan.
+10. Edit Data Akun Admin.
+11. Reset Password Akun Karyawan.
+12. Reset Password Akun Admin.
 
 ## Changelog
+
+### v.1.3.1 Update Patch #5
+
+- Edit Data Admin
+- Edit Data Admin API
+- Refactor some codes
+- Remove Unnecessary files
 
 ### v.1.2.7 Update Patch #4
 

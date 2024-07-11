@@ -1,4 +1,4 @@
-// API Edit Data Karyawan. Lokasi : /src/app/api/edit-karyawan
+// API Edit Data Admin. Lokasi : /src/app/api/edit-admin
 
 // API untuk mengubah email, nama akun Karyawan.
 
@@ -40,12 +40,12 @@ export const PUT = async (req) =>{
         },
       })
 
-      return NextResponse.json({message:"Data Akun Berhasil diubah", user}, {status:200})
+      return NextResponse.json({message:"Data Admin Berhasil diubah", user}, {status:200})
     }
     catch(error){
-      console.error("Error mengubah data akun : ", error)
+      console.error("Error mengubah data admin : ", error)
 
-      return NextResponse.json({error:"Ada kesalahan ketika mengganti data akun"}, {status:500})
+      return NextResponse.json({error:"Ada kesalahan ketika mengganti data admin"}, {status:500})
     }
   }
   catch(error){
