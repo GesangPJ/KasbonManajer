@@ -9,6 +9,7 @@ services:
       - NEXTAUTH_URL=
       - NEXTAUTH_SECRET=
       - NEXT_PUBLIC_APP_URL=
+      - DATABASE_URL=
       - POSTGRES_PRISMA_URL=
       - POSTGRES_URL_NON_POOLING=
       - ADMIN_KEY=
