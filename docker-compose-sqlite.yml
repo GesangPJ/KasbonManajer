@@ -1,0 +1,12 @@
+# Docker Compose Kasbon Manager SQlite Version
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NEXTAUTH_URL=
+      - NEXTAUTH_SECRET=
+      - NEXT_PUBLIC_APP_URL=
+      - ADMIN_KEY=
