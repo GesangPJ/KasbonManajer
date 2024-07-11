@@ -16,6 +16,7 @@ const HalamanTentang =() =>{
         <p>Pengembang :</p><p className="font-bold">GESANG PAUDRA JAYA, S.Kom</p><hr /><br />
         <p>Bahasa Pemrograman : JavaScript</p><br />
         <p>Framework : NextJS v.14.2.3</p><br />
+        <p>Database : PostgreSQL 16 / SQLite 3</p>
         <p>User Interface : Tailwind & MUI Material UI</p><br />
 
       </div>
