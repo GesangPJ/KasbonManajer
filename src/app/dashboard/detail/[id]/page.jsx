@@ -178,9 +178,6 @@ const DetailPage = () => {
         <Button variant='outlined' color="success" onClick={handleExcelExport} sx={ { borderRadius: 30 } } size="large" startIcon={<ListAltIcon/>}>
                 Export XLSX
         </Button>
-        <Button variant='outlined' color="primary" onClick={handleDocxExport} sx={ { borderRadius: 30 } } size="large">
-          Docx
-        </Button>
       </Box>
     </div>
   )
