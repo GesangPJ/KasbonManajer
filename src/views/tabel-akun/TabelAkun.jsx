@@ -92,7 +92,11 @@ const TabelAkun = () => {
       headerName: 'Edit',
       width: 100,
       renderCell: (params) => (
-        <Button variant="contained" color="primary" onClick={() => handleClickOpen(params.row)}>
+        <Button
+        variant="contained"
+        sx={{borderRadius:30}}
+        color="primary"
+        onClick={() => handleClickOpen(params.row)}>
           Edit
         </Button>
       ),
